@@ -1,0 +1,24 @@
+{
+  "name": "trello",
+  "version": "1.0.0",
+  "description": "start",
+  "main": "index.js",
+  "scripts": {
+    "dev": "parcel ./src/index.html",
+    "build": "parcel build ./src/index.html --no-source-maps"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Siarhei-Douhi/Trello.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Siarhei-Douhi/Trello/issues"
+  },
+  "homepage": "https://github.com/Siarhei-Douhi/Trello#readme",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.5"
+  }
+}
