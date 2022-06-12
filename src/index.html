@@ -5,9 +5,38 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="media.css">
     <title>Document</title>
 </head>
 <body>
+    <div class="container">
+        <header class="header">
+            <h3 class="header_title">Trello</h3>
+            <div class="header_clock"></div>
+        </header>
+        <div class="boards">
+            <div class="board_todo">
+                <div class="board_todo-info">
+                    <h3 class="board_todo-title">Todo</h3>
+                    <div class="board_todo-count"></div>
+                </div>
+                <button>Add todo</button>
+            </div>
+            <div class="board_prorgess">
+                <div class="board_prorgess-info">
+                    <h3 class="board_prorgess-title">In prorgess</h3>
+                    <div class="board_todo-count"></div>
+                </div>
+            </div>
+            <div class="board_done">
+                <div class="board_done-info">
+                    <h3 class="board_done-title">Done</h3>
+                    <div class="board_done-count"></div>
+                </div>
+                <button>Delete all</button>
+            </div>
+        </div>
+    </div>
     
     <script src="script.js" type="module"></script>
 </body>
