@@ -10,30 +10,113 @@ body {
     font-size: 18px;
     line-height: 21px;
     color: #000000;
+    border: 1px solid #663e7624;
+    background: #dec9e31c;
 }
 h3 {
     display: block;
 }
 .container {
-    width: 1000px;
+    width: 1200px;
     display: flex;
     flex-direction: column;
-    padding: 20px;
-    border: 2px solid #000000;
+
+    margin: 0 auto;
+    padding: 0 15px;
+
 }
+/* HEADER */
 .header {
+    height: 100px;
+    padding: 50px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: #c68bd547;
+    border-radius: 20px;
 }
+.header__clock{
+    width: 80px;
+    height: 40px;
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #d4b4df;
+}
+.header__title {
+    font-size: 35px;
+}
+
+/* BOARDS */
 .boards {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3 , 33.33% );
 }
-.board_todo,
-.board_prorgess,
-.board_done {
+.board__todo,
+.board__prorgess,
+.board__done {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    height: 500px; 
+    background: white;
+    border-radius: 20px;
+    margin: 20px;
+    box-shadow: 0 0 14px rgb(0 0 0 / 10%);
+}
+.title {
+    text-transform: uppercase;
+}
+
+.info {
+    background: #76d16b63;
+    width: 100%;
+    padding: 15px;
+    text-align: center;
+    border-radius: 10px;
+}
+.board__prorgess-info {
+    background: #a5b3a363;
+
+}
+.board__done-info {
+    background: #6b86d173;
+}
+
+/* Кнопки */
+.board__todo button {
+    background: #76d16b63;
+    width: 100%;
+    padding: 15px;
+    text-align: center;
+    border-radius: 10px;
+    border: none;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+
+}
+.board__todo button:hover{
+    background: #588f526e;
+}
+.board__todo button:active{
+    background: #31ab237a;
+}
+.board__done button {
+    background: #6b86d173;
+    width: 100%;
+    padding: 15px;
+    text-align: center;
+    border-radius: 10px;
+    border: none;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+}
+.board__done button:hover{
+    background: #41517e73;
+}
+.board__done button:active{
+    background: #4d65a7c4;
 }
