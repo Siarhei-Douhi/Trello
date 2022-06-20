@@ -1,0 +1,38 @@
+@media (max-width: 1200px){
+    .container {
+        width: 1024px;
+    }
+}
+@media (max-width: 1024px) {
+    .container {
+        width: 100%;
+    }
+}
+@media (max-width: 900px){
+    .boards {
+        display: grid;
+        grid-template-columns: repeat(2 , 50% );
+    }
+    .board__done {
+        grid-column: 1 / -1;
+        width: 50%;
+        margin: 0 auto;
+    }
+}
+@media (max-width: 620px){
+    .boards {
+        display: flex;
+        flex-direction: column;
+    }
+    .board__todo,
+    .board__prorgess,
+    .board__done  {
+        width: 90%;
+    }
+}
+@media (max-width: 490px){
+    .header__clock{
+        width: 60px;
+        height: 30px;
+    }
+}
