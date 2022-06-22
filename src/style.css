@@ -20,10 +20,8 @@ h3 {
     width: 1200px;
     display: flex;
     flex-direction: column;
-
     margin: 0 auto;
     padding: 0 15px;
-
 }
 /* HEADER */
 .header {
@@ -36,12 +34,16 @@ h3 {
     background: #c68bd547;
     border-radius: 20px;
 }
-.header__clock{
+.header__clock {
     width: 80px;
     height: 40px;
     background: #fff;
     border-radius: 10px;
     border: 1px solid #d4b4df;
+    font-size: 23px;
+    text-align: center;
+    padding: 7px;
+    color: #a51acb;
 }
 .header__title {
     font-size: 35px;
@@ -59,7 +61,7 @@ h3 {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    height: 500px; 
+    height: 700px; 
     background: white;
     border-radius: 20px;
     margin: 20px;
@@ -68,7 +70,6 @@ h3 {
 .title {
     text-transform: uppercase;
 }
-
 .info {
     background: #76d16b63;
     width: 100%;
@@ -78,14 +79,12 @@ h3 {
 }
 .board__prorgess-info {
     background: #a5b3a363;
-
 }
 .board__done-info {
     background: #6b86d173;
 }
-
 /* Кнопки */
-.board__todo button {
+.boards__todo-add {
     background: #76d16b63;
     width: 100%;
     padding: 15px;
@@ -95,15 +94,14 @@ h3 {
     font-size: 20px;
     font-weight: 500;
     cursor: pointer;
-
 }
-.board__todo button:hover{
+.boards__todo-add:hover{
     background: #588f526e;
 }
-.board__todo button:active{
+.boards__todo-add:active{
     background: #31ab237a;
 }
-.board__done button {
+.board__done-delall {
     background: #6b86d173;
     width: 100%;
     padding: 15px;
@@ -114,9 +112,75 @@ h3 {
     font-weight: 500;
     cursor: pointer;
 }
-.board__done button:hover{
+.board__done-delall:hover{
     background: #41517e73;
 }
-.board__done button:active{
+.board__done-delall:active{
     background: #4d65a7c4;
+}
+/* modal task */
+.modalTaskContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5) ;
+    overflow: hidden;
+    
+}
+.modalTaskDialog {
+    max-width: 500px;
+    margin: 40px auto;
+}
+.modalTask {
+    border-radius: 20px;
+    width: 700px;
+    height: 450px;
+    background: rgb(145 218 162);
+    border: 1px solid rgba(44, 43, 43, 0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 35px;
+}
+.modalTaskTitle {
+    background: rgb(255, 255, 255);
+    border-radius: 10px;
+    border: 1px solid;
+    width: 250px;
+    font-size: 27px;
+    height: 60px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+.modalTaskDescription {
+    background: rgb(255, 255, 255);
+    border-radius: 20px;
+    border: 1px solid;
+    width: 600px;
+    height: 200px;
+    font-size: 27px;
+    margin-bottom: 30px;
+    padding: 10px;
+    font-family: 'Raleway', sans-serif;
+}
+.modalbtns {
+    display: flex;
+    justify-content: space-around;
+}
+.modalSelect {
+    width: 300px;
+    border-radius: 10px;
+}
+.modalTaskBtn {
+    border-radius: 10px;
+    border: 1px solid;
+    width: 120px;
+    height: 60px;
+    font-size: 20px;
+}
+.modalTaskBtn:hover {
+    background: rgb(221, 216, 216);
 }
