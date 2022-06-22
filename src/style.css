@@ -84,7 +84,7 @@ h3 {
     background: #6b86d173;
 }
 /* Кнопки */
-.board__todo button {
+.boards__todo-add {
     background: #76d16b63;
     width: 100%;
     padding: 15px;
@@ -95,13 +95,13 @@ h3 {
     font-weight: 500;
     cursor: pointer;
 }
-.board__todo button:hover{
+.boards__todo-add:hover{
     background: #588f526e;
 }
-.board__todo button:active{
+.boards__todo-add:active{
     background: #31ab237a;
 }
-.board__done button {
+.board__done-delall {
     background: #6b86d173;
     width: 100%;
     padding: 15px;
@@ -112,10 +112,10 @@ h3 {
     font-weight: 500;
     cursor: pointer;
 }
-.board__done button:hover{
+.board__done-delall:hover{
     background: #41517e73;
 }
-.board__done button:active{
+.board__done-delall:active{
     background: #4d65a7c4;
 }
 /* modal task */
