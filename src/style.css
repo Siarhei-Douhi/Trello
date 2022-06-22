@@ -20,10 +20,8 @@ h3 {
     width: 1200px;
     display: flex;
     flex-direction: column;
-
     margin: 0 auto;
     padding: 0 15px;
-
 }
 /* HEADER */
 .header {
@@ -72,7 +70,6 @@ h3 {
 .title {
     text-transform: uppercase;
 }
-
 .info {
     background: #76d16b63;
     width: 100%;
@@ -82,12 +79,10 @@ h3 {
 }
 .board__prorgess-info {
     background: #a5b3a363;
-
 }
 .board__done-info {
     background: #6b86d173;
 }
-
 /* Кнопки */
 .board__todo button {
     background: #76d16b63;
@@ -99,7 +94,6 @@ h3 {
     font-size: 20px;
     font-weight: 500;
     cursor: pointer;
-
 }
 .board__todo button:hover{
     background: #588f526e;
@@ -124,4 +118,69 @@ h3 {
 .board__done button:active{
     background: #4d65a7c4;
 }
-
+/* modal task */
+.modalTaskContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5) ;
+    overflow: hidden;
+    
+}
+.modalTaskDialog {
+    max-width: 500px;
+    margin: 40px auto;
+}
+.modalTask {
+    border-radius: 20px;
+    width: 700px;
+    height: 450px;
+    background: rgb(145 218 162);
+    border: 1px solid rgba(44, 43, 43, 0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 35px;
+}
+.modalTaskTitle {
+    background: rgb(255, 255, 255);
+    border-radius: 10px;
+    border: 1px solid;
+    width: 250px;
+    font-size: 27px;
+    height: 60px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+.modalTaskDescription {
+    background: rgb(255, 255, 255);
+    border-radius: 20px;
+    border: 1px solid;
+    width: 600px;
+    height: 200px;
+    font-size: 27px;
+    margin-bottom: 30px;
+    padding: 10px;
+    font-family: 'Raleway', sans-serif;
+}
+.modalbtns {
+    display: flex;
+    justify-content: space-around;
+}
+.modalSelect {
+    width: 300px;
+    border-radius: 10px;
+}
+.modalTaskBtn {
+    border-radius: 10px;
+    border: 1px solid;
+    width: 120px;
+    height: 60px;
+    font-size: 20px;
+}
+.modalTaskBtn:hover {
+    background: rgb(221, 216, 216);
+}
