@@ -1,14 +1,14 @@
 import { time, clock } from "./clock.js";
-import { updateLocalStorage } from "./localStor.js";
+import { updateLocalStorage, ifLocalStorage, getLocalStorage } from "./localStor.js";
 import { generateId } from "./generateId.js";
-import { modalTaskBtnConfirm, createModalTask, modalTaskContainer, modalTaskTitle, modalTaskDescription } from "./modalTask.js";
+import { modalTaskBtnConfirm, createModalTask } from "./modalTask.js";
+import { modalTaskContainer, modalTaskTitle, modalTaskDescription } from "./modalTask.js";
 import { chengeCounters, todoCount, progressCount, doneCount } from "./counters.js";
 
 export function app() {
 
     // модальное окно
     const boardsTodoAdd = document.querySelector('.board__todo-add');
-    
     boardsTodoAdd.addEventListener('click', () => {
         createModalTask();
     });
@@ -22,15 +22,14 @@ export function app() {
     let todoCard = {};
     let doneCard = {};
 
-
     // контейнеры для карточек
     const todoCards = document.querySelector('.board__todo-cards'); 
     const progressCards = document.querySelector('.board__progress-cards');
     const doneCards = document.querySelector('.board__done-cards');
 
     // проверка localStorage для отрисовки данных
-    if (localStorage.getItem('todoBoard')) {
-        todo = JSON.parse(localStorage.getItem('todoBoard'));
+    if (ifLocalStorage('todoBoard')) {
+        todo = getLocalStorage('todoBoard');
         todo.forEach((item) => {
             createCardTodo(item);
         });
@@ -38,8 +37,8 @@ export function app() {
         chengeCounters('todoBoard', todoCount);
     }
 
-    if (localStorage.getItem('inProgressBoard')) {
-        inProgress = JSON.parse(localStorage.getItem('inProgressBoard'));
+    if (ifLocalStorage('inProgressBoard')) {
+        inProgress = getLocalStorage('inProgressBoard');
         inProgress.forEach((item) => {
             createCardProgress(item);
         });
@@ -47,15 +46,14 @@ export function app() {
         chengeCounters('inProgressBoard', progressCount);
     }
 
-    if (localStorage.getItem('doneBoard')) {
-        done = JSON.parse(localStorage.getItem('doneBoard'));
+    if (ifLocalStorage('doneBoard')) {
+        done = getLocalStorage('doneBoard');
         done.forEach((item) => {
             createCardDone(item);
         });
         // обновление счетчика
         chengeCounters('doneBoard', doneCount);
     }
-
 
     // кнопки
     const delAll = document.querySelector('.board__done-delall');
@@ -144,22 +142,32 @@ export function app() {
         btnSend.classList.add('btnSend');
         btnSend.innerText = '>';
         btnSend.addEventListener('click', () => {
-            todo.forEach((item) => {
-                if(item.id === obj.id) {
-                    inProgressCard = {...item};
+            block_1: {
+                if (chengeCounters('inProgressBoard', progressCount) > 5) {
+                    const question = confirm('Warning!'); // заменить на мод.окно
+                    if(!question) {
+                        break block_1;
+                    }
                 }
-            });
-            inProgress.push(inProgressCard);
-            createCardProgress(inProgressCard);
-            updateLocalStorage('inProgressBoard', inProgress);
-            inProgressCard = {};
+            
+                todo.forEach((item) => {
+                    if(item.id === obj.id) {
+                        inProgressCard = {...item};
+                    }
+                });
+                inProgress.push(inProgressCard);
+                createCardProgress(inProgressCard);
+                updateLocalStorage('inProgressBoard', inProgress);
+                inProgressCard = {};
 
-            todo = todo.filter((item) => item.id !== obj.id);
-            updateLocalStorage('todoBoard', todo);
-            card.remove();
-            // обновление счетчика
-            chengeCounters('todoBoard', todoCount);
-            chengeCounters('inProgressBoard', progressCount);
+                todo = todo.filter((item) => item.id !== obj.id);
+                updateLocalStorage('todoBoard', todo);
+                card.remove();
+
+                // обновление счетчика
+                chengeCounters('todoBoard', todoCount);
+                chengeCounters('inProgressBoard', progressCount);
+            }
         });
         descrWrap.append(description, btnSend);
 

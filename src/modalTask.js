@@ -2,10 +2,8 @@ export const modalTaskBtnConfirm = document.createElement('button');
 export const modalTaskContainer = document.createElement('div');
 export const modalTaskTitle = document.createElement('input');
 export const modalTaskDescription = document.createElement('textarea');
-// export const modalTaskDialog = document.createElement('div');
 
 export function createModalTask() {
-    // const modalTaskContainer = document.createElement('div');
     modalTaskContainer.classList.add('modalTaskContainer');
 
     const modalTaskDialog = document.createElement('div');
@@ -16,12 +14,10 @@ export function createModalTask() {
 
     const boards = document.querySelector('.boards');
 
-    // const modalTaskTitle = document.createElement('input');
     modalTaskTitle.classList.add('modalTaskTitle');
     modalTaskTitle.type = 'text';
     modalTaskTitle.placeholder = 'Title';
 
-    // const modalTaskDescription = document.createElement('textarea');
     modalTaskDescription.classList.add('modalTaskDescription');
     modalTaskDescription.placeholder = 'Description';
 
@@ -47,7 +43,6 @@ export function createModalTask() {
     modalTaskBtnCancel.classList.add('modalTaskBtn');
     modalTaskBtnCancel.innerText = 'Cancel';
 
-    // const modalTaskBtnConfirm = document.createElement('button');
     modalTaskBtnConfirm.classList.add('modalTaskBtn');
     modalTaskBtnConfirm.innerText = 'Confirm';
         // append
