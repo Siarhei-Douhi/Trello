@@ -76,8 +76,10 @@ export function createModalTask() {
     );
         //btnClouse
     modalTaskBtnCancel.addEventListener('click', () => {
+        // oбнуляем текстовые данные мод.окна
         modalTaskTitle.value = '';
         modalTaskDescription.value = '';
+        // удал. мод.окно (без стр.83 при повт. наж. на add появл. два окна)
         modalTaskContainer.innerHTML = '';
         modalTaskContainer.remove();
     });
