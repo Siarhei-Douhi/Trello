@@ -2,6 +2,7 @@ export const modalTaskBtnConfirm = document.createElement('button');
 export const modalTaskContainer = document.createElement('div');
 export const modalTaskTitle = document.createElement('input');
 export const modalTaskDescription = document.createElement('textarea');
+// export const modalTaskDialog = document.createElement('div');
 
 export function createModalTask() {
     // const modalTaskContainer = document.createElement('div');
@@ -75,6 +76,9 @@ export function createModalTask() {
     );
         //btnClouse
     modalTaskBtnCancel.addEventListener('click', () => {
-        modalTaskContainer.remove()
+        modalTaskTitle.value = '';
+        modalTaskDescription.value = '';
+        modalTaskContainer.innerHTML = '';
+        modalTaskContainer.remove();
     });
 };

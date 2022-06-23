@@ -68,20 +68,23 @@ export function app() {
 
     // создание карточки нажатием confirm мод.окно
     modalTaskBtnConfirm.addEventListener('click', () => {
-        // вызов модального окна + прописать условие модально окна
+        let cardTitle = modalTaskTitle.value;
+        let cardDescription = modalTaskDescription.value;
         todoCard.id = generateId();
-        todoCard.title = modalTaskTitle.value; // эти и все данные ниже берем из value мод.окна
-        todoCard.description = modalTaskDescription.value;
+        (cardTitle) ? (todoCard.title = cardTitle) : (todoCard.title = 'Title');
+        (cardDescription) ? (todoCard.description = cardDescription) : (todoCard.description = 'Description');
+        // с todoCard.name позже сделать тоже самое
         todoCard.name = 'UserName';
         todoCard.time = time(); 
         todo.push(todoCard);
         createCardTodo(todoCard);
         updateLocalStorage('todoBoard', todo);
         todoCard = {};
+        // обнуляем данные модального окна
         modalTaskTitle.value = '';
         modalTaskDescription.value = '';
+        modalTaskContainer.innerHTML = '';
         modalTaskContainer.remove();
-        // обнуляем данные модального окна, если надо
     });
 
 
@@ -101,9 +104,7 @@ export function app() {
         btnEdit.classList.add('btnEdit');
         btnEdit.innerText = 'Edit';
         // btnEdit.addEventListener('click', () =>{});
-
         // вызов модального окна, значения брать из карточки, где оно было вызвано
-
 
         const btnDelete = document.createElement('button');
         btnDelete.classList.add('btnDelete');
