@@ -2,6 +2,7 @@ import { time, clock } from "./clock.js";
 import { updateLocalStorage } from "./localStor.js";
 import { generateId } from "./generateId.js";
 import { modalTaskBtnConfirm, createModalTask, modalTaskContainer, modalTaskTitle, modalTaskDescription } from "./modalTask.js";
+import { chengeCounters, todoCount, progressCount, doneCount } from "./counters.js";
 
 export function app() {
 
@@ -21,20 +22,6 @@ export function app() {
     let todoCard = {};
     let doneCard = {};
 
-    // счётчики
-    let counterTodo = 0;
-    let counterProgress = 0;
-    let counterDone = 0;
-
-    const todoCount = document.querySelector('.board__todo-count');
-    todoCount.innerHTML = counterTodo;
-    const progressCount = document.querySelector('.board__progress-count');
-    progressCount.innerHTML = counterProgress;
-    const doneCount = document.querySelector('.board__done-count');
-    doneCount.innerHTML = counterDone;
-
-
-
 
     // контейнеры для карточек
     const todoCards = document.querySelector('.board__todo-cards'); 
@@ -48,8 +35,7 @@ export function app() {
             createCardTodo(item);
         });
         // обновление счетчика
-        counterTodo = JSON.parse(localStorage.getItem('todoBoard')).length;
-        todoCount.innerHTML = counterTodo;
+        chengeCounters('todoBoard', todoCount);
     }
 
     if (localStorage.getItem('inProgressBoard')) {
@@ -58,8 +44,7 @@ export function app() {
             createCardProgress(item);
         });
         // обновление счетчика
-        counterProgress = JSON.parse(localStorage.getItem('inProgressBoard')).length;
-        progressCount.innerHTML = counterProgress;
+        chengeCounters('inProgressBoard', progressCount);
     }
 
     if (localStorage.getItem('doneBoard')) {
@@ -68,8 +53,7 @@ export function app() {
             createCardDone(item);
         });
         // обновление счетчика
-        counterDone = JSON.parse(localStorage.getItem('doneBoard')).length;
-        doneCount.innerHTML = counterDone;
+        chengeCounters('doneBoard', doneCount);
     }
 
 
@@ -81,8 +65,7 @@ export function app() {
             updateLocalStorage('doneBoard', done);
             doneCards.innerHTML = '';
             // обновление счетчика
-            counterDone = JSON.parse(localStorage.getItem('doneBoard')).length;
-            doneCount.innerHTML = counterDone;
+            chengeCounters('doneBoard', doneCount);
         }
     });
 
@@ -107,8 +90,7 @@ export function app() {
         modalTaskContainer.innerHTML = '';
         modalTaskContainer.remove();
         // обновление счетчика
-        counterTodo = JSON.parse(localStorage.getItem('todoBoard')).length;
-        todoCount.innerHTML = counterTodo;
+        chengeCounters('todoBoard', todoCount);
     });
 
 
@@ -141,8 +123,7 @@ export function app() {
                 card.remove();
             }
             // обновление счетчика
-            counterTodo = JSON.parse(localStorage.getItem('todoBoard')).length;
-            todoCount.innerHTML = counterTodo;
+            chengeCounters('todoBoard', todoCount);
         });
         btnsHeadWrap.append(btnEdit, btnDelete);
 
@@ -177,10 +158,8 @@ export function app() {
             updateLocalStorage('todoBoard', todo);
             card.remove();
             // обновление счетчика
-            counterTodo = JSON.parse(localStorage.getItem('todoBoard')).length;
-            todoCount.innerHTML = counterTodo;
-            counterProgress = JSON.parse(localStorage.getItem('inProgressBoard')).length;
-            progressCount.innerHTML = counterProgress;
+            chengeCounters('todoBoard', todoCount);
+            chengeCounters('inProgressBoard', progressCount);
         });
         descrWrap.append(description, btnSend);
 
@@ -224,10 +203,8 @@ export function app() {
             updateLocalStorage('inProgressBoard', inProgress);
             card.remove();
             // обновление счетчика
-            counterTodo = JSON.parse(localStorage.getItem('todoBoard')).length;
-            todoCount.innerHTML = counterTodo;
-            counterProgress = JSON.parse(localStorage.getItem('inProgressBoard')).length;
-            progressCount.innerHTML = counterProgress;
+            chengeCounters('todoBoard', todoCount);
+            chengeCounters('inProgressBoard', progressCount);
         });
 
         const btnComplete = document.createElement('button');
@@ -249,10 +226,8 @@ export function app() {
             updateLocalStorage('inProgressBoard', inProgress);
             card.remove();
             // обновление счетчика
-            counterDone = JSON.parse(localStorage.getItem('doneBoard')).length;
-            doneCount.innerHTML = counterDone;
-            counterProgress = JSON.parse(localStorage.getItem('inProgressBoard')).length;
-            progressCount.innerHTML = counterProgress;
+            chengeCounters('inProgressBoard', progressCount);
+            chengeCounters('doneBoard', doneCount);
         });
         btnsHeadWrap.append(btnBack, btnComplete);
 
@@ -302,8 +277,7 @@ export function app() {
                 card.remove();
             }
             // обновление счетчика
-            counterDone = JSON.parse(localStorage.getItem('doneBoard')).length;
-            doneCount.innerHTML = counterDone;
+            chengeCounters('doneBoard', doneCount);
         });
         btnsHeadWrap.append(btnDelete);
 
