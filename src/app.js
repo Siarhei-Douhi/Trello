@@ -4,9 +4,12 @@ import { generateId } from "./generateId.js";
 import { modalTaskBtnConfirm, createModalTask } from "./modalTask.js";
 import { modalTaskContainer, modalTaskTitle, modalTaskDescription } from "./modalTask.js";
 import { chengeCounters, todoCount, progressCount, doneCount } from "./counters.js";
+//import { openModalWarning } from "./modalWarning.js";
+
+
 
 export function app() {
-
+    let body = document.querySelector('body')
     // модальное окно
     const boardsTodoAdd = document.querySelector('.board__todo-add');
     boardsTodoAdd.addEventListener('click', () => {
@@ -86,6 +89,7 @@ export function app() {
         modalTaskTitle.value = '';
         modalTaskDescription.value = '';
         modalTaskContainer.innerHTML = '';
+        body.style.overflow = '';
         modalTaskContainer.remove();
         // обновление счетчика
         chengeCounters('todoBoard', todoCount);
@@ -125,7 +129,7 @@ export function app() {
         });
         btnsHeadWrap.append(btnEdit, btnDelete);
 
-        const titleCard = document.createElement('h4');
+        let titleCard = document.createElement('h4');
         titleCard.classList.add('titleCard');
         titleCard.innerText = obj.title;
         card.append(titleCard);
@@ -143,18 +147,20 @@ export function app() {
         btnSend.innerText = '>';
         btnSend.addEventListener('click', () => {
             block_1: {
-                if (chengeCounters('inProgressBoard', progressCount) > 5) {
-                    const question = confirm('Warning!'); // заменить на мод.окно
-                    if(!question) {
-                        break block_1;
-                    }
+                if(progressCount.innerHTML < 6) {    
+                    createCardSend()
+                } else{
+                    openModalWarning();
                 }
-            
-                todo.forEach((item) => {
+            }
+        });
+        function createCardSend(){
+                            todo.forEach((item) => {
                     if(item.id === obj.id) {
                         inProgressCard = {...item};
                     }
                 });
+                
                 inProgress.push(inProgressCard);
                 createCardProgress(inProgressCard);
                 updateLocalStorage('inProgressBoard', inProgress);
@@ -164,11 +170,105 @@ export function app() {
                 updateLocalStorage('todoBoard', todo);
                 card.remove();
 
-                // обновление счетчика
                 chengeCounters('todoBoard', todoCount);
                 chengeCounters('inProgressBoard', progressCount);
-            }
+        }
+
+        btnEdit.addEventListener('click', () => {            
+            let editItem = todo.filter((item) => item.id == obj.id);
+            let title = editItem[0].title;
+            let name = editItem[0].name;
+            let time = editItem[0].time;
+            let desc = editItem[0].description;
+            let id = editItem[0].id;
+
+            createModalTask();
+
+            let modalTitle = document.querySelector('.modalTaskTitle');
+            let modalDesc = document.querySelector('.modalTaskDescription');
+            let modalUser = document.querySelector('.modalTaskUser');
+
+            modalTitle.value = title;
+            modalDesc.value = desc;
+
+            let confirmBtn = document.querySelector('.modalTaskConfirm');
+            confirmBtn.addEventListener('click', () => {
+                let editItems = todo.filter((item) => item.id == obj.id);
+
+                let title = editItems[0].title;
+               //let newItem = editItem;
+               //editItem[0].id = editItem[0].id;
+                ///editItem[0].title = title;
+                editItems[0].description = modalDesc.value;
+               //newItem[0].name = modalUser.value;
+               //newItem[0].time = editItem[0].time;
+
+
+               //updateLocalStorage('todoBoard', newItem);
+            })
         });
+
+        function openModalWarning () {
+            const body = document.querySelector('body');
+            body.style.overflow = 'hidden';
+
+            const container = document.querySelector('.container');
+            
+            const modalWarningContainer = document.createElement('div');
+            modalWarningContainer.classList.add('modalTaskContainer');
+        
+            const modalWarningDialog = document.createElement('div');
+            modalWarningDialog.classList.add('modalTaskDialog');
+        
+            const modalWarning = document.createElement('div');
+            modalWarning.classList.add('modalWarning');
+            modalWarning.innerText = 'Warning!';
+        
+            const btnAllWarning = document.createElement ('div');
+            btnAllWarning.classList.add('btnAllWarning');
+        
+            const btnWarningCancel = document.createElement('button');
+            btnWarningCancel.classList.add('btnWarningCancel');
+            btnWarningCancel.innerText = 'Cancel';
+        
+            const btnWarningConfirm = document.createElement('button');
+            btnWarningConfirm.classList.add('btnWarningConfirm');
+            btnWarningConfirm.innerText = 'Confirm';
+            
+        
+            container.append(modalWarningContainer);
+            modalWarningContainer.append(modalWarningDialog);
+            modalWarningDialog.append(modalWarning);
+            modalWarning.append(btnAllWarning);
+            btnAllWarning.append(btnWarningCancel, btnWarningConfirm);
+        
+            btnWarningCancel.addEventListener('click', () => {
+                body.style.overflow = '';
+                modalWarningContainer.remove()
+            });
+            btnWarningConfirm.addEventListener('click', () => {
+                todo.forEach((item) => {
+                    if(item.id === obj.id) {
+                        inProgressCard = {...item};
+                    }
+                });
+                
+                inProgress.push(inProgressCard);
+                createCardProgress(inProgressCard);
+                updateLocalStorage('inProgressBoard', inProgress);
+                inProgressCard = {};
+
+                todo = todo.filter((item) => item.id !== obj.id);
+                updateLocalStorage('todoBoard', todo);
+                card.remove();
+
+                chengeCounters('todoBoard', todoCount);
+                chengeCounters('inProgressBoard', progressCount);
+            modalWarningContainer.remove()
+            body.style.overflow = '';
+            });
+        };
+
         descrWrap.append(description, btnSend);
 
         const userWrap = document.createElement('div');
@@ -182,7 +282,6 @@ export function app() {
         userWrap.append(userName, cardTime);
     }
 
-
     function createCardProgress(obj) {
         const card = document.createElement('div');
         card.classList.add('card'); 
@@ -192,7 +291,7 @@ export function app() {
         const btnsHeadWrap = document.createElement('div');
         btnsHeadWrap.classList.add('btnsHeadWrap');
         card.append(btnsHeadWrap);
-     
+    
         const btnBack = document.createElement('button');
         btnBack.classList.add('btnBack');
         btnBack.innerText = 'Back';
@@ -218,7 +317,7 @@ export function app() {
         const btnComplete = document.createElement('button');
         btnComplete.classList.add('btnComplete');
         btnComplete.innerText = 'Complete';
-     
+
         btnComplete.addEventListener('click', () => {
             inProgress.forEach((item) => {
                 if(item.id === obj.id) {

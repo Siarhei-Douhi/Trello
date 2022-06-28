@@ -4,6 +4,9 @@ export const modalTaskTitle = document.createElement('input');
 export const modalTaskDescription = document.createElement('textarea');
 
 export function createModalTask() {
+    const body = document.querySelector('body')
+    body.style.overflow = 'hidden';
+
     modalTaskContainer.classList.add('modalTaskContainer');
 
     const modalTaskDialog = document.createElement('div');
@@ -40,10 +43,10 @@ export function createModalTask() {
     modalTaskSelectUser4.innerHTML = 'Sergei';
 
     const modalTaskBtnCancel = document.createElement('button');
-    modalTaskBtnCancel.classList.add('modalTaskBtn');
+    modalTaskBtnCancel.classList.add('modalTaskCancel');
     modalTaskBtnCancel.innerText = 'Cancel';
 
-    modalTaskBtnConfirm.classList.add('modalTaskBtn');
+    modalTaskBtnConfirm.classList.add('modalTaskConfirm');
     modalTaskBtnConfirm.innerText = 'Confirm';
         // append
 
@@ -76,6 +79,7 @@ export function createModalTask() {
         modalTaskDescription.value = '';
         // удал. мод.окно (без стр.83 при повт. наж. на add появл. два окна)
         modalTaskContainer.innerHTML = '';
+        body.style.overflow = '';
         modalTaskContainer.remove();
     });
 };
