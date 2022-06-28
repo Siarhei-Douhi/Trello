@@ -1,3 +1,5 @@
+import { modalTaskSelectUser, selectUsers } from "./selectUsers.js";
+export const modalTaskSelect = document.createElement('select');
 export function createModalTask (){
 
         const modalTaskContainer = document.createElement('div');
@@ -23,19 +25,25 @@ export function createModalTask (){
         modalTaskbtns.classList.add('modalbtns');
     
         //select user
-        const modalTaskSelect = document.createElement('select');
-        modalTaskSelect.classList.add('modalSelect')
+
+        // const modalTaskSelect = document.createElement('select');
+        modalTaskSelect.classList.add('modalSelect');
+        modalTaskSelect.addEventListener('click', () => {
+            if (!modalTaskSelect.innerHTML) {
+                selectUsers();
+            }
+        });
     
-        const modalTaskSelectUser = document.createElement('option');
-        modalTaskSelectUser.innerHTML = 'Select user';
-        const modalTaskSelectUser1 = document.createElement('option');
-        modalTaskSelectUser1.innerHTML = 'Dasha';
-        const modalTaskSelectUser2 = document.createElement('option');
-        modalTaskSelectUser2.innerHTML = 'Stepan';
-        const modalTaskSelectUser3 = document.createElement('option');
-        modalTaskSelectUser3.innerHTML = 'Arthur';
-        const modalTaskSelectUser4 = document.createElement('option');
-        modalTaskSelectUser4.innerHTML = 'Sergei';
+        // const modalTaskSelectUser = document.createElement('option');
+        // modalTaskSelectUser.innerHTML = 'Select User';
+        // const modalTaskSelectUser1 = document.createElement('option');
+        // modalTaskSelectUser1.innerHTML = 'Dasha';
+        // const modalTaskSelectUser2 = document.createElement('option');
+        // modalTaskSelectUser2.innerHTML = 'Stepan';
+        // const modalTaskSelectUser3 = document.createElement('option');
+        // modalTaskSelectUser3.innerHTML = 'Arthur';
+        // const modalTaskSelectUser4 = document.createElement('option');
+        // modalTaskSelectUser4.innerHTML = 'Sergei';
     
         const modalTaskBtnCancel = document.createElement('button');
         modalTaskBtnCancel.classList.add('modalTaskBtn');
@@ -62,13 +70,13 @@ export function createModalTask (){
             modalTaskBtnConfirm
         );
 
-        modalTaskSelect.append(
-            modalTaskSelectUser,
-            modalTaskSelectUser1, 
-            modalTaskSelectUser2, 
-            modalTaskSelectUser3, 
-            modalTaskSelectUser4
-        );
+        // modalTaskSelect.append(
+        //     modalTaskSelectUser,
+        //     modalTaskSelectUser1, 
+        //     modalTaskSelectUser2, 
+        //     modalTaskSelectUser3, 
+        //     modalTaskSelectUser4
+        // );
             //btnClouse
         modalTaskBtnCancel.addEventListener('click', () => {
             modalTaskContainer.remove()

@@ -1,8 +1,17 @@
-async function selectUsers() {
-    const response = await fetch('https://jsonplaceholder.typicode.com/users');
+import { modalTaskSelect } from "./modalTask.js"
+
+// const USERS_URL = 'https://jsonplaceholder.typicode.com/users';
+export const modalTaskSelectUser = document.createElement('option');
+
+export async function selectUsers() {
+    const USERS_URL = 'https://jsonplaceholder.typicode.com/users';
+    const response = await fetch(USERS_URL);
     const users = await response.json();
+    users.forEach(({id, name, userName, email, address}) => {
+        const modalTaskSelectUser = document.createElement('option');
+        modalTaskSelectUser.innerHTML = name;
+        modalTaskSelect.append(modalTaskSelectUser);
+    });
+}
 
-
-};
-
-selectUsers();
+ // modalTaskSelect.addEventListener('click', selectUsers);
