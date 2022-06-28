@@ -55,7 +55,7 @@ h3 {
     grid-template-columns: repeat(3 , 33.33% );
 }
 .board__todo,
-.board__prorgess,
+.board__progress,
 .board__done {
     display: flex;
     flex-direction: column;
@@ -71,20 +71,22 @@ h3 {
     text-transform: uppercase;
 }
 .info {
+    display: flex;
+    justify-content: space-between;
     background: #76d16b63;
     width: 100%;
     padding: 15px;
-    text-align: center;
     border-radius: 10px;
+    margin-bottom: 10px;
 }
-.board__prorgess-info {
+.board__progress-info {
     background: #a5b3a363;
 }
 .board__done-info {
     background: #6b86d173;
 }
 /* Кнопки */
-.boards__todo-add {
+.board__todo-add {
     background: #76d16b63;
     width: 100%;
     padding: 15px;
@@ -95,10 +97,10 @@ h3 {
     font-weight: 500;
     cursor: pointer;
 }
-.boards__todo-add:hover{
+.board__todo-add:hover{
     background: #588f526e;
 }
-.boards__todo-add:active{
+.board__todo-add:active{
     background: #31ab237a;
 }
 .board__done-delall {
@@ -184,3 +186,69 @@ h3 {
 .modalTaskBtn:hover {
     background: rgb(221, 216, 216);
 }
+
+/* style card */
+
+.board__todo-cards,
+.board__progress-cards,
+.board__done-cards {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.card {
+    width: 300px;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.card button {
+    background-color: white;
+    padding: 5px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.board__todo .card {
+    background: #76d16b63;
+    border: 2px solid #031a0163;
+}
+.board__progress .card {
+    background: #a5b3a363;
+    border: 2px solid #393a3963;
+}
+.board__done .card {
+    background: #6b86d173;
+    border: 2px solid #2a4ba5c4;
+}
+
+.btnsHeadWrap {
+    display: flex;
+    justify-content: flex-end;
+    column-gap: 10px;
+    width: 100%;
+}
+.btnEdit {}
+.btnDelete {}
+.titleCard {
+    margin-bottom: 10px;
+}
+.descrWrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.description {}
+.btnSend {
+    height: 40px;
+}
+.userWrap {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btnBack {}
+.btnComplete {}
