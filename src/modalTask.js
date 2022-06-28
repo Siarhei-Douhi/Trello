@@ -41,7 +41,6 @@ export function createModalTask() {
     modalTaskBtnCancel.classList.add('modalTaskBtn');
     modalTaskBtnCancel.innerText = 'Cancel';
 
-    const modalTaskBtnConfirm = document.createElement('button');
     modalTaskBtnConfirm.classList.add('modalTaskBtn');
     modalTaskBtnConfirm.innerText = 'Confirm';
     // append
