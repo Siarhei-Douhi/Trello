@@ -1,7 +1,7 @@
 import { time, clock } from "./clock.js";
 import { updateLocalStorage, ifLocalStorage, getLocalStorage } from "./localStor.js";
 import { generateId } from "./generateId.js";
-import { modalTaskBtnConfirm, createModalTask } from "./modalTask.js";
+import { modalTaskBtnConfirm, createModalTask, modalTaskSelect } from "./modalTask.js";
 import { modalTaskContainer, modalTaskTitle, modalTaskDescription } from "./modalTask.js";
 import { chengeCounters, todoCount, progressCount, doneCount } from "./counters.js";
 
@@ -76,7 +76,8 @@ export function app() {
         (cardTitle) ? (todoCard.title = cardTitle) : (todoCard.title = 'Title');
         (cardDescription) ? (todoCard.description = cardDescription) : (todoCard.description = 'Description');
         // с todoCard.name позже сделать тоже самое
-        todoCard.name = 'UserName';
+        let cardUser = modalTaskSelect.value;
+        todoCard.name = cardUser;
         todoCard.time = time(); 
         todo.push(todoCard);
         createCardTodo(todoCard);
@@ -85,6 +86,7 @@ export function app() {
         // обнуляем данные модального окна
         modalTaskTitle.value = '';
         modalTaskDescription.value = '';
+        modalTaskSelect.innerHTML = '';
         modalTaskContainer.innerHTML = '';
         modalTaskContainer.remove();
         // обновление счетчика

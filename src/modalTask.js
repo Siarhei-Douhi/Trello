@@ -1,4 +1,4 @@
-import { modalTaskSelectUser, selectUsers } from "./selectUsers.js";
+import { selectUsers, modalTaskSelectUser } from "./selectUsers.js";
 export const modalTaskSelect = document.createElement('select');
 export const modalTaskBtnConfirm = document.createElement('button');
 export const modalTaskContainer = document.createElement('div');
@@ -6,7 +6,6 @@ export const modalTaskTitle = document.createElement('input');
 export const modalTaskDescription = document.createElement('textarea');
 
 export function createModalTask() {
-    const modalTaskContainer = document.createElement('div');
     modalTaskContainer.classList.add('modalTaskContainer');
 
     const modalTaskDialog = document.createElement('div');
@@ -29,9 +28,12 @@ export function createModalTask() {
     modalTaskbtns.classList.add('modalbtns');
 
     //select user
-    // const modalTaskSelect = document.createElement('select');
     modalTaskSelect.classList.add('modalSelect');
+    modalTaskSelectUser.innerHTML = 'User Name';
+    modalTaskSelect.append(modalTaskSelectUser);
+
     modalTaskSelect.addEventListener('click', () => {
+        modalTaskSelect.innerHTML = '';
         if (!modalTaskSelect.innerHTML) {
             selectUsers();
         }
@@ -65,6 +67,7 @@ export function createModalTask() {
         // oбнуляем текстовые данные мод.окна
         modalTaskTitle.value = '';
         modalTaskDescription.value = '';
+        modalTaskSelect.innerHTML = '';
         // удал. мод.окно (без стр.83 при повт. наж. на add появл. два окна)
         modalTaskContainer.innerHTML = '';
         modalTaskContainer.remove();
