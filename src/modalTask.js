@@ -1,11 +1,17 @@
-import { selectUsers, modalTaskSelectUser } from "./selectUsers.js";
+// import { selectUsers } from "./selectUsers.js";
 export const modalTaskSelect = document.createElement('select');
 export const modalTaskBtnConfirm = document.createElement('button');
 export const modalTaskContainer = document.createElement('div');
 export const modalTaskTitle = document.createElement('input');
 export const modalTaskDescription = document.createElement('textarea');
+export const modalSelectUserName = document.createElement('option');
 
 export function createModalTask() {
+
+    modalSelectUserName.innerHTML = 'Select User Name';
+    modalSelectUserName.setAttribute('selected', 'selected');
+    modalTaskSelect.prepend(modalSelectUserName);
+    
     modalTaskContainer.classList.add('modalTaskContainer');
 
     const modalTaskDialog = document.createElement('div');
@@ -16,11 +22,9 @@ export function createModalTask() {
 
     const boards = document.querySelector('.boards');
 
-    const modalTaskTitle = document.createElement('input');
     modalTaskTitle.classList.add('modalTaskTitle');
     modalTaskTitle.placeholder = 'Title';
 
-    const modalTaskDescription = document.createElement('textarea');
     modalTaskDescription.classList.add('modalTaskDescription');
     modalTaskDescription.placeholder = 'Description';
 
@@ -29,14 +33,14 @@ export function createModalTask() {
 
     //select user
     modalTaskSelect.classList.add('modalSelect');
-    modalTaskSelectUser.innerHTML = 'User Name';
-    modalTaskSelect.append(modalTaskSelectUser);
-
-    modalTaskSelect.addEventListener('click', () => {
-        modalTaskSelect.innerHTML = '';
-        if (!modalTaskSelect.innerHTML) {
-            selectUsers();
-        }
+    
+    modalTaskSelect.addEventListener('click', () => {   
+        // if (modalTaskSelect.firstChild  === modalTaskSelect.lastChild) {
+        //     selectUsers();
+        // }
+        // if (!modalTaskSelect.innerHTML) {
+        //     selectUsers();
+        // } 
     });
 
     const modalTaskBtnCancel = document.createElement('button');
@@ -67,7 +71,8 @@ export function createModalTask() {
         // oбнуляем текстовые данные мод.окна
         modalTaskTitle.value = '';
         modalTaskDescription.value = '';
-        modalTaskSelect.innerHTML = '';
+        modalSelectUserName.remove();
+        modalTaskSelect.value = '';
         // удал. мод.окно (без стр.83 при повт. наж. на add появл. два окна)
         modalTaskContainer.innerHTML = '';
         modalTaskContainer.remove();

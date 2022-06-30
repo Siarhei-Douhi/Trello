@@ -1,7 +1,5 @@
 import { modalTaskSelect } from "./modalTask.js"
 
-export const modalTaskSelectUser = document.createElement('option');
-
 export async function selectUsers() {
     const USERS_URL = 'https://jsonplaceholder.typicode.com/users';
     const response = await fetch(USERS_URL);

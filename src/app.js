@@ -2,8 +2,9 @@ import { time, clock } from "./clock.js";
 import { updateLocalStorage, ifLocalStorage, getLocalStorage } from "./localStor.js";
 import { generateId } from "./generateId.js";
 import { modalTaskBtnConfirm, createModalTask, modalTaskSelect } from "./modalTask.js";
-import { modalTaskContainer, modalTaskTitle, modalTaskDescription } from "./modalTask.js";
+import { modalTaskContainer, modalTaskTitle, modalTaskDescription, modalSelectUserName } from "./modalTask.js";
 import { chengeCounters, todoCount, progressCount, doneCount } from "./counters.js";
+import { selectUsers } from "./selectUsers.js";
 
 export function app() {
 
@@ -11,6 +12,9 @@ export function app() {
     const boardsTodoAdd = document.querySelector('.board__todo-add');
     boardsTodoAdd.addEventListener('click', () => {
         createModalTask();
+        if (modalTaskSelect.length == 1) {
+            selectUsers();
+        }
     });
 
     clock();
@@ -75,7 +79,6 @@ export function app() {
         // берем данные из мод.окна, если их нет, то подставл. знач. по умолч.
         (cardTitle) ? (todoCard.title = cardTitle) : (todoCard.title = 'Title');
         (cardDescription) ? (todoCard.description = cardDescription) : (todoCard.description = 'Description');
-        // с todoCard.name позже сделать тоже самое
         let cardUser = modalTaskSelect.value;
         todoCard.name = cardUser;
         todoCard.time = time(); 
@@ -86,7 +89,8 @@ export function app() {
         // обнуляем данные модального окна
         modalTaskTitle.value = '';
         modalTaskDescription.value = '';
-        modalTaskSelect.innerHTML = '';
+        modalSelectUserName.remove();
+        modalTaskSelect.value = '';
         modalTaskContainer.innerHTML = '';
         modalTaskContainer.remove();
         // обновление счетчика
