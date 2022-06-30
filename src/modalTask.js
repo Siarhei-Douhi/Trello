@@ -1,3 +1,5 @@
+import { selectUsers, modalTaskSelectUser } from "./selectUsers.js";
+export const modalTaskSelect = document.createElement('select');
 export const modalTaskBtnConfirm = document.createElement('button');
 export const modalTaskContainer = document.createElement('div');
 export const modalTaskTitle = document.createElement('input');
@@ -14,10 +16,11 @@ export function createModalTask() {
 
     const boards = document.querySelector('.boards');
 
+    const modalTaskTitle = document.createElement('input');
     modalTaskTitle.classList.add('modalTaskTitle');
-    modalTaskTitle.type = 'text';
     modalTaskTitle.placeholder = 'Title';
 
+    const modalTaskDescription = document.createElement('textarea');
     modalTaskDescription.classList.add('modalTaskDescription');
     modalTaskDescription.placeholder = 'Description';
 
@@ -25,19 +28,16 @@ export function createModalTask() {
     modalTaskbtns.classList.add('modalbtns');
 
     //select user
-    const modalTaskSelect = document.createElement('select');
-    modalTaskSelect.classList.add('modalSelect')
+    modalTaskSelect.classList.add('modalSelect');
+    modalTaskSelectUser.innerHTML = 'User Name';
+    modalTaskSelect.append(modalTaskSelectUser);
 
-    const modalTaskSelectUser = document.createElement('option');
-    modalTaskSelectUser.innerHTML = 'Select user';
-    const modalTaskSelectUser1 = document.createElement('option');
-    modalTaskSelectUser1.innerHTML = 'Dasha';
-    const modalTaskSelectUser2 = document.createElement('option');
-    modalTaskSelectUser2.innerHTML = 'Stepan';
-    const modalTaskSelectUser3 = document.createElement('option');
-    modalTaskSelectUser3.innerHTML = 'Arthur';
-    const modalTaskSelectUser4 = document.createElement('option');
-    modalTaskSelectUser4.innerHTML = 'Sergei';
+    modalTaskSelect.addEventListener('click', () => {
+        modalTaskSelect.innerHTML = '';
+        if (!modalTaskSelect.innerHTML) {
+            selectUsers();
+        }
+    });
 
     const modalTaskBtnCancel = document.createElement('button');
     modalTaskBtnCancel.classList.add('modalTaskBtn');
@@ -45,7 +45,7 @@ export function createModalTask() {
 
     modalTaskBtnConfirm.classList.add('modalTaskBtn');
     modalTaskBtnConfirm.innerText = 'Confirm';
-        // append
+    // append
 
     boards.append(modalTaskContainer);
     modalTaskContainer.append(modalTaskDialog);
@@ -54,26 +54,20 @@ export function createModalTask() {
     modalTask.append(
         modalTaskTitle, 
         modalTaskDescription,
-        modalTaskbtns 
+        modalTaskbtns
     );
-    
+        
     modalTaskbtns.append(
         modalTaskSelect, 
         modalTaskBtnCancel, 
         modalTaskBtnConfirm
     );
-    modalTaskSelect.append(
-        modalTaskSelectUser,
-        modalTaskSelectUser1, 
-        modalTaskSelectUser2, 
-        modalTaskSelectUser3, 
-        modalTaskSelectUser4
-    );
-        //btnClouse
+    //btnClouse
     modalTaskBtnCancel.addEventListener('click', () => {
         // oбнуляем текстовые данные мод.окна
         modalTaskTitle.value = '';
         modalTaskDescription.value = '';
+        modalTaskSelect.innerHTML = '';
         // удал. мод.окно (без стр.83 при повт. наж. на add появл. два окна)
         modalTaskContainer.innerHTML = '';
         modalTaskContainer.remove();
