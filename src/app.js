@@ -5,17 +5,10 @@ import { modalTaskBtnConfirm, createModalTask, modalTaskSelect } from "./modalTa
 import { modalTaskContainer, modalTaskTitle, modalTaskDescription, modalSelectUserName } from "./modalTask.js";
 import { chengeCounters, todoCount, progressCount, doneCount } from "./counters.js";
 import { selectUsers } from "./selectUsers.js";
+import { openModalWarning } from "./modalWarning.js";
 
 export function app() {
-
-    // модальное окно
-    const boardsTodoAdd = document.querySelector('.board__todo-add');
-    boardsTodoAdd.addEventListener('click', () => {
-        createModalTask();
-        if (modalTaskSelect.length == 1) {
-            selectUsers();
-        }
-    });
+    // let body = document.querySelector('body');
 
     clock();
 
@@ -59,19 +52,25 @@ export function app() {
         chengeCounters('doneBoard', doneCount);
     }
 
-    // кнопки
-    const delAll = document.querySelector('.board__done-delall');
-    delAll.addEventListener('click', () => {
-        if(doneCards.innerHTML) {
-            done.length = 0;
-            updateLocalStorage('doneBoard', done);
-            doneCards.innerHTML = '';
-            // обновление счетчика
-            chengeCounters('doneBoard', doneCount);
+    // КНОПКИ
+    // кнопка выз. модальное окно
+    const boardsTodoAdd = document.querySelector('.board__todo-add');
+    boardsTodoAdd.addEventListener('click', () => {
+        createModalTask();
+        if (modalTaskSelect.length == 1) {
+            selectUsers();
         }
     });
 
-    // создание карточки нажатием confirm мод.окно
+    // кнопка удал. карточек Done
+    const delAll = document.querySelector('.board__done-delall');
+    delAll.addEventListener('click', () => {
+        if(doneCards.innerHTML) {
+            openModalWarning(delAllWarning, done, doneCards);
+        }
+    });
+
+    // кнопка создания карточки нажатием confirm мод.окно
     modalTaskBtnConfirm.addEventListener('click', () => {
         let cardTitle = modalTaskTitle.value;
         let cardDescription = modalTaskDescription.value;
@@ -92,11 +91,11 @@ export function app() {
         modalSelectUserName.remove();
         modalTaskSelect.value = '';
         modalTaskContainer.innerHTML = '';
+        // body.style.overflow = '';
         modalTaskContainer.remove();
         // обновление счетчика
         chengeCounters('todoBoard', todoCount);
     });
-
 
 
     // функции создания карточек
@@ -131,7 +130,7 @@ export function app() {
         });
         btnsHeadWrap.append(btnEdit, btnDelete);
 
-        const titleCard = document.createElement('h4');
+        let titleCard = document.createElement('h4');
         titleCard.classList.add('titleCard');
         titleCard.innerText = obj.title;
         card.append(titleCard);
@@ -147,33 +146,14 @@ export function app() {
         const btnSend = document.createElement('button');
         btnSend.classList.add('btnSend');
         btnSend.innerText = '>';
-        btnSend.addEventListener('click', () => {
-            block_1: {
-                if (chengeCounters('inProgressBoard', progressCount) > 5) {
-                    const question = confirm('Warning!'); // заменить на мод.окно
-                    if(!question) {
-                        break block_1;
-                    }
-                }
-            
-                todo.forEach((item) => {
-                    if(item.id === obj.id) {
-                        inProgressCard = {...item};
-                    }
-                });
-                inProgress.push(inProgressCard);
-                createCardProgress(inProgressCard);
-                updateLocalStorage('inProgressBoard', inProgress);
-                inProgressCard = {};
-
-                todo = todo.filter((item) => item.id !== obj.id);
-                updateLocalStorage('todoBoard', todo);
-                card.remove();
-
-                // обновление счетчика
-                chengeCounters('todoBoard', todoCount);
-                chengeCounters('inProgressBoard', progressCount);
+        btnSend.addEventListener('click', () => {  
+            if (progressCount.innerHTML > 5) {
+                card.style.backgroundColor = 'red';
+                openModalWarning(cardSend, obj, card);
+            } else {
+                cardSend(obj, card);
             }
+    
         });
         descrWrap.append(description, btnSend);
 
@@ -187,8 +167,8 @@ export function app() {
         cardTime.innerText = obj.time;
         userWrap.append(userName, cardTime);
     }
-
-
+     
+       
     function createCardProgress(obj) {
         const card = document.createElement('div');
         card.classList.add('card'); 
@@ -198,7 +178,7 @@ export function app() {
         const btnsHeadWrap = document.createElement('div');
         btnsHeadWrap.classList.add('btnsHeadWrap');
         card.append(btnsHeadWrap);
-     
+    
         const btnBack = document.createElement('button');
         btnBack.classList.add('btnBack');
         btnBack.innerText = 'Back';
@@ -224,7 +204,7 @@ export function app() {
         const btnComplete = document.createElement('button');
         btnComplete.classList.add('btnComplete');
         btnComplete.innerText = 'Complete';
-     
+
         btnComplete.addEventListener('click', () => {
             inProgress.forEach((item) => {
                 if(item.id === obj.id) {
@@ -319,4 +299,33 @@ export function app() {
         cardTime.innerText = obj.time;
         userWrap.append(userName, cardTime);
     };
+
+    // функции для модального окна Warning
+    function delAllWarning(done, doneCards) {
+        done.length = 0;
+        updateLocalStorage('doneBoard', done);
+        doneCards.innerHTML = '';
+        // обновление счетчика
+        chengeCounters('doneBoard', doneCount);
+    }
+
+    function cardSend(obj, card) {
+        todo.forEach((item) => {
+            if(item.id === obj.id) {
+                inProgressCard = {...item};
+            }
+        });
+        inProgress.push(inProgressCard);
+        createCardProgress(inProgressCard);
+        updateLocalStorage('inProgressBoard', inProgress);
+        inProgressCard = {};
+
+        todo = todo.filter((item) => item.id !== obj.id);
+        updateLocalStorage('todoBoard', todo);
+        card.remove();
+
+        // обновление счетчика
+        chengeCounters('todoBoard', todoCount);
+        chengeCounters('inProgressBoard', progressCount);
+    }
 };

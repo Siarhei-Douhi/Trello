@@ -11,7 +11,10 @@ export function createModalTask() {
     modalSelectUserName.innerHTML = 'Select User Name';
     modalSelectUserName.setAttribute('selected', 'selected');
     modalTaskSelect.prepend(modalSelectUserName);
-    
+
+    const body = document.querySelector('body')
+    body.style.overflow = 'hidden';
+
     modalTaskContainer.classList.add('modalTaskContainer');
 
     const modalTaskDialog = document.createElement('div');
@@ -44,10 +47,10 @@ export function createModalTask() {
     });
 
     const modalTaskBtnCancel = document.createElement('button');
-    modalTaskBtnCancel.classList.add('modalTaskBtn');
+    modalTaskBtnCancel.classList.add('modalTaskCancel');
     modalTaskBtnCancel.innerText = 'Cancel';
 
-    modalTaskBtnConfirm.classList.add('modalTaskBtn');
+    modalTaskBtnConfirm.classList.add('modalTaskConfirm');
     modalTaskBtnConfirm.innerText = 'Confirm';
     // append
 
@@ -75,6 +78,7 @@ export function createModalTask() {
         modalTaskSelect.value = '';
         // удал. мод.окно (без стр.83 при повт. наж. на add появл. два окна)
         modalTaskContainer.innerHTML = '';
+        body.style.overflow = '';
         modalTaskContainer.remove();
     });
 };
