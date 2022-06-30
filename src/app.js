@@ -119,14 +119,7 @@ export function app() {
         btnDelete.classList.add('btnDelete');
         btnDelete.innerText = 'Delete';
         btnDelete.addEventListener('click', () => {
-            const question = confirm('Вы уверены?');
-            if(question) {
-                todo = todo.filter((item) => item.id !== obj.id);
-                updateLocalStorage('todoBoard', todo);
-                card.remove();
-            }
-            // обновление счетчика
-            chengeCounters('todoBoard', todoCount);
+            openModalWarning(dellCard, obj, card);
         });
         btnsHeadWrap.append(btnEdit, btnDelete);
 
@@ -327,5 +320,12 @@ export function app() {
         // обновление счетчика
         chengeCounters('todoBoard', todoCount);
         chengeCounters('inProgressBoard', progressCount);
+    }
+    function dellCard (obj, card) {
+        todo = todo.filter((item) => item.id !== obj.id);
+        updateLocalStorage('todoBoard', todo);
+        card.remove();
+        // обновление счетчика
+        chengeCounters('todoBoard', todoCount);
     }
 };
