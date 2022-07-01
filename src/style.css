@@ -11,7 +11,7 @@ body {
     line-height: 21px;
     color: #000000;
     border: 1px solid #663e7624;
-    background: #dec9e31c;
+    background: linear-gradient(#5e5e94, #dab8be);
 }
 h3 {
     display: block;
@@ -46,7 +46,11 @@ h3 {
     color: #a51acb;
 }
 .header__title {
-    font-size: 35px;
+    font-size: 55px;
+    font-family: 'Diplomata SC', cursive;
+    color: #000;
+    width: 100%;
+    text-align: center;
 }
 
 /* BOARDS */
@@ -66,6 +70,7 @@ h3 {
     border-radius: 20px;
     margin: 20px;
     box-shadow: 0 0 14px rgb(0 0 0 / 10%);
+    
 }
 .title {
     text-transform: uppercase;
@@ -78,6 +83,7 @@ h3 {
     padding: 15px;
     border-radius: 10px;
     margin-bottom: 10px;
+    
 }
 .board__progress-info {
     background: #a5b3a363;
@@ -176,7 +182,8 @@ h3 {
     width: 300px;
     border-radius: 10px;
 }
-.modalTaskBtn {
+.modalTaskCancel,
+.modalTaskConfirm {
     border-radius: 10px;
     border: 1px solid;
     width: 120px;
@@ -196,6 +203,7 @@ h3 {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    overflow: auto;
 }
 
 .card {
@@ -252,3 +260,32 @@ h3 {
 
 .btnBack {}
 .btnComplete {}
+
+
+/* Warning */
+.modalWarning {
+    border-radius: 20px;
+    /* width: 400px; */
+    height: 250px;
+    background: rgb(145 218 162);
+    border: 1px solid rgba(44, 43, 43, 0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 50px;
+    font-size: 55px;
+    text-align: center;
+}
+
+.btnWarningCancel,
+.btnWarningConfirm {
+    width: 100px;
+    height: 50px;
+}
+.btnAllWarning {
+    width: 100%;
+    height: 100%;
+    align-items: end;
+    justify-content: space-evenly;
+    display: flex;
+}

@@ -1,11 +1,19 @@
-import { selectUsers, modalTaskSelectUser } from "./selectUsers.js";
+import { body} from "./modalWarning.js";
 export const modalTaskSelect = document.createElement('select');
 export const modalTaskBtnConfirm = document.createElement('button');
 export const modalTaskContainer = document.createElement('div');
 export const modalTaskTitle = document.createElement('input');
 export const modalTaskDescription = document.createElement('textarea');
+export const modalSelectUserName = document.createElement('option');
 
 export function createModalTask() {
+
+    modalSelectUserName.innerHTML = 'Select User Name';
+    modalSelectUserName.setAttribute('selected', 'selected');
+    modalTaskSelect.prepend(modalSelectUserName);
+
+    body.style.overflow = 'hidden';
+
     modalTaskContainer.classList.add('modalTaskContainer');
 
     const modalTaskDialog = document.createElement('div');
@@ -16,11 +24,9 @@ export function createModalTask() {
 
     const boards = document.querySelector('.boards');
 
-    const modalTaskTitle = document.createElement('input');
     modalTaskTitle.classList.add('modalTaskTitle');
     modalTaskTitle.placeholder = 'Title';
 
-    const modalTaskDescription = document.createElement('textarea');
     modalTaskDescription.classList.add('modalTaskDescription');
     modalTaskDescription.placeholder = 'Description';
 
@@ -29,21 +35,16 @@ export function createModalTask() {
 
     //select user
     modalTaskSelect.classList.add('modalSelect');
-    modalTaskSelectUser.innerHTML = 'User Name';
-    modalTaskSelect.append(modalTaskSelectUser);
-
-    modalTaskSelect.addEventListener('click', () => {
-        modalTaskSelect.innerHTML = '';
-        if (!modalTaskSelect.innerHTML) {
-            selectUsers();
-        }
-    });
+    
+    // modalTaskSelect.addEventListener('click', () => {   
+     
+    // });
 
     const modalTaskBtnCancel = document.createElement('button');
-    modalTaskBtnCancel.classList.add('modalTaskBtn');
+    modalTaskBtnCancel.classList.add('modalTaskCancel');
     modalTaskBtnCancel.innerText = 'Cancel';
 
-    modalTaskBtnConfirm.classList.add('modalTaskBtn');
+    modalTaskBtnConfirm.classList.add('modalTaskConfirm');
     modalTaskBtnConfirm.innerText = 'Confirm';
     // append
 
@@ -67,9 +68,10 @@ export function createModalTask() {
         // oбнуляем текстовые данные мод.окна
         modalTaskTitle.value = '';
         modalTaskDescription.value = '';
-        modalTaskSelect.innerHTML = '';
-        // удал. мод.окно (без стр.83 при повт. наж. на add появл. два окна)
+        modalSelectUserName.remove();
+        modalTaskSelect.value = '';
         modalTaskContainer.innerHTML = '';
+        body.style.overflow = '';
         modalTaskContainer.remove();
     });
 };
