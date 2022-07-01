@@ -1,6 +1,7 @@
 export  const container = document.querySelector('.container');
+export const body = document.querySelector('body');
 export function openModalWarning(func, a, b) {
-    const body = document.querySelector('body');
+    // const body = document.querySelector('body');
     body.style.overflow = 'hidden';
 
     const modalWarningContainer = document.createElement('div');

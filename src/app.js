@@ -8,7 +8,6 @@ import { selectUsers } from "./selectUsers.js";
 import { openModalWarning } from "./modalWarning.js";
 
 export function app() {
-    // let body = document.querySelector('body');
 
     clock();
 
@@ -91,7 +90,6 @@ export function app() {
         modalSelectUserName.remove();
         modalTaskSelect.value = '';
         modalTaskContainer.innerHTML = '';
-        // body.style.overflow = '';
         modalTaskContainer.remove();
         // обновление счетчика
         chengeCounters('todoBoard', todoCount);

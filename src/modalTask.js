@@ -1,4 +1,4 @@
-// import { selectUsers } from "./selectUsers.js";
+import { body} from "./modalWarning.js";
 export const modalTaskSelect = document.createElement('select');
 export const modalTaskBtnConfirm = document.createElement('button');
 export const modalTaskContainer = document.createElement('div');
@@ -12,7 +12,6 @@ export function createModalTask() {
     modalSelectUserName.setAttribute('selected', 'selected');
     modalTaskSelect.prepend(modalSelectUserName);
 
-    const body = document.querySelector('body')
     body.style.overflow = 'hidden';
 
     modalTaskContainer.classList.add('modalTaskContainer');
@@ -37,14 +36,9 @@ export function createModalTask() {
     //select user
     modalTaskSelect.classList.add('modalSelect');
     
-    modalTaskSelect.addEventListener('click', () => {   
-        // if (modalTaskSelect.firstChild  === modalTaskSelect.lastChild) {
-        //     selectUsers();
-        // }
-        // if (!modalTaskSelect.innerHTML) {
-        //     selectUsers();
-        // } 
-    });
+    // modalTaskSelect.addEventListener('click', () => {   
+     
+    // });
 
     const modalTaskBtnCancel = document.createElement('button');
     modalTaskBtnCancel.classList.add('modalTaskCancel');
@@ -76,7 +70,6 @@ export function createModalTask() {
         modalTaskDescription.value = '';
         modalSelectUserName.remove();
         modalTaskSelect.value = '';
-        // удал. мод.окно (без стр.83 при повт. наж. на add появл. два окна)
         modalTaskContainer.innerHTML = '';
         body.style.overflow = '';
         modalTaskContainer.remove();
