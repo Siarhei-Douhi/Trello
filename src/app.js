@@ -2,7 +2,7 @@ import { time, clock } from "./clock.js";
 import { updateLocalStorage, ifLocalStorage, getLocalStorage } from "./localStor.js";
 import { generateId } from "./generateId.js";
 import { modalTaskBtnConfirm, createModalTask, modalTaskSelect } from "./modalTask.js";
-import { modalTaskContainer, modalTaskTitle, modalTaskDescription, modalSelectUserName } from "./modalTask.js";
+import { modalTaskTitle, modalTaskDescription, clearModalTask } from "./modalTask.js";
 import { chengeCounters, todoCount, progressCount, doneCount } from "./counters.js";
 import { selectUsers } from "./selectUsers.js";
 import { openModalWarning } from "./modalWarning.js";
@@ -23,13 +23,6 @@ export function app() {
     const todoCards = document.querySelector('.board__todo-cards'); 
     const progressCards = document.querySelector('.board__progress-cards');
     const doneCards = document.querySelector('.board__done-cards');
-
-    let titleCardTest;
-    let descriptionTest;
-    let userNameTest;
-    // let titleCard = document.createElement('h4');
-    // let description = document.createElement('div');
-    // let userName = document.createElement('div');
 
     // проверка localStorage для отрисовки данных
     if (ifLocalStorage('todoBoard')) {
@@ -152,9 +145,6 @@ export function app() {
         const cardTime = document.createElement('div');
         cardTime.innerText = obj.time;
         userWrap.append(userName, cardTime);
-        let titleCardTest = titleCard;
-        let descriptionTest = description;
-        let userNameTest = userName;
     }
      
        
@@ -253,14 +243,12 @@ export function app() {
         btnDelete.classList.add('btnDelete');
         btnDelete.innerText = 'Delete';
         btnDelete.addEventListener('click', () => {
-            const question = confirm('Вы уверены?');
-            if(question) {
-                done = done.filter((item) => item.id !== obj.id);
-                updateLocalStorage('doneBoard', done);
-                card.remove();
-            }
-            // обновление счетчика
-            chengeCounters('doneBoard', doneCount);
+            // done = done.filter((item) => item.id !== obj.id);
+            // updateLocalStorage('doneBoard', done);
+            // card.remove();
+            // // обновление счетчика
+            // chengeCounters('doneBoard', doneCount);
+            openModalWarning(dellCardDone, obj, card);
         });
         btnsHeadWrap.append(btnDelete);
 
@@ -294,18 +282,15 @@ export function app() {
         let cardTitle = modalTaskTitle.value;
         let cardDescription = modalTaskDescription.value;
         let cardUserName = modalTaskSelect.value;
-        if(flag === 1) {
-            
+        if(flag === 1) {  
             todoCard.id = generateId();
             (cardTitle) ? (todoCard.title = cardTitle) : (todoCard.title = 'Title');
             (cardDescription) ? (todoCard.description = cardDescription) : (todoCard.description = 'Description');
-            // let cardUserName = modalTaskSelect.value;
             todoCard.name = cardUserName;
             todoCard.time = time(); 
             todo.push(todoCard);
             createCardTodo(todoCard);
             todoCard = {};
-            flag = 0;
         } else if (flag === 2) {
             
             todo.forEach((item) => {
@@ -323,18 +308,11 @@ export function app() {
             (cardTitle) ? (titleEdit.innerText = cardTitle) : (titleEdit.innerText = 'Title');
             (cardDescription) ? (descEdit.innerText = cardDescription) : (descEdit.innerText = 'Description');
             userEdit.innerText = modalTaskSelect.value;
-            flag = 0;
         }
+        flag = 0;
         updateLocalStorage('todoBoard', todo);
         chengeCounters('todoBoard', todoCount); 
-        // обнуляем данные модального окна
-        modalTaskTitle.value = '';
-        modalTaskDescription.value = '';
-        modalSelectUserName.remove();
-        modalTaskSelect.value = '';
-        modalTaskContainer.innerHTML = '';
-        modalTaskContainer.remove();
-        
+        clearModalTask()
     });
 
     // функции для модального окна Warning
@@ -371,5 +349,12 @@ export function app() {
         card.remove();
         // обновление счетчика
         chengeCounters('todoBoard', todoCount);
+    }
+    function dellCardDone (obj, card) {
+        done = done.filter((item) => item.id !== obj.id);
+        updateLocalStorage('doneBoard', done);
+        card.remove();
+        // обновление счетчика
+        chengeCounters('doneBoard', doneCount);
     }
 };

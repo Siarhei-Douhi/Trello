@@ -71,15 +71,16 @@ export function createModalTask(name, flag) {
     //btnClouse
     modalTaskBtnCancel.addEventListener('click', () => {
         flag = 0;
-        console.log(flag);
-        // oбнуляем текстовые данные мод.окна
-        modalTaskTitle.value = '';
-        modalTaskDescription.value = '';
-        modalSelectUserName.remove();
-        modalTaskSelect.value = '';
-        modalTaskContainer.innerHTML = '';
-        body.style.overflow = '';
-        modalTaskContainer.remove();
-        
+        clearModalTask()
     });
 };
+
+export function clearModalTask() {
+    body.style.overflow = '';
+    modalTaskTitle.value = '';
+    modalTaskDescription.value = '';
+    modalSelectUserName.remove();
+    modalTaskSelect.value = '';
+    modalTaskContainer.innerHTML = '';
+    modalTaskContainer.remove();
+}
