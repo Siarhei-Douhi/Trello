@@ -17,11 +17,19 @@ export function app() {
     let inProgressCard = {};
     let todoCard = {};
     let doneCard = {};
-
+    let ID;
+    let flag = 0;
     // контейнеры для карточек
     const todoCards = document.querySelector('.board__todo-cards'); 
     const progressCards = document.querySelector('.board__progress-cards');
     const doneCards = document.querySelector('.board__done-cards');
+
+    let titleCardTest;
+    let descriptionTest;
+    let userNameTest;
+    // let titleCard = document.createElement('h4');
+    // let description = document.createElement('div');
+    // let userName = document.createElement('div');
 
     // проверка localStorage для отрисовки данных
     if (ifLocalStorage('todoBoard')) {
@@ -55,7 +63,8 @@ export function app() {
     // кнопка выз. модальное окно
     const boardsTodoAdd = document.querySelector('.board__todo-add');
     boardsTodoAdd.addEventListener('click', () => {
-        createModalTask();
+        flag = 1;
+        createModalTask('Select User Name', flag);
         if (modalTaskSelect.length == 1) {
             selectUsers();
         }
@@ -70,31 +79,7 @@ export function app() {
     });
 
     // кнопка создания карточки нажатием confirm мод.окно
-    modalTaskBtnConfirm.addEventListener('click', () => {
-        let cardTitle = modalTaskTitle.value;
-        let cardDescription = modalTaskDescription.value;
-        todoCard.id = generateId();
-        // берем данные из мод.окна, если их нет, то подставл. знач. по умолч.
-        (cardTitle) ? (todoCard.title = cardTitle) : (todoCard.title = 'Title');
-        (cardDescription) ? (todoCard.description = cardDescription) : (todoCard.description = 'Description');
-        let cardUser = modalTaskSelect.value;
-        todoCard.name = cardUser;
-        todoCard.time = time(); 
-        todo.push(todoCard);
-        createCardTodo(todoCard);
-        updateLocalStorage('todoBoard', todo);
-        todoCard = {};
-        // обнуляем данные модального окна
-        modalTaskTitle.value = '';
-        modalTaskDescription.value = '';
-        modalSelectUserName.remove();
-        modalTaskSelect.value = '';
-        modalTaskContainer.innerHTML = '';
-        modalTaskContainer.remove();
-        // обновление счетчика
-        chengeCounters('todoBoard', todoCount);
-    });
-
+   
 
     // функции создания карточек
     function createCardTodo(obj) {
@@ -110,8 +95,17 @@ export function app() {
         const btnEdit = document.createElement('button');
         btnEdit.classList.add('btnEdit');
         btnEdit.innerText = 'Edit';
-        // btnEdit.addEventListener('click', () =>{});
-        // вызов модального окна, значения брать из карточки, где оно было вызвано
+        btnEdit.addEventListener('click', () => {            
+            let editItem = todo.filter((item) => item.id == card.id);
+            modalTaskTitle.value = editItem[0].title;
+            modalTaskDescription.value = editItem[0].description;
+            ID = editItem[0].id;
+            let editName = editItem[0].name;
+            modalTaskSelect.value = editItem[0].name;
+            flag = 2;
+            
+            createModalTask(editName, flag);
+        });
 
         const btnDelete = document.createElement('button');
         btnDelete.classList.add('btnDelete');
@@ -121,7 +115,8 @@ export function app() {
         });
         btnsHeadWrap.append(btnEdit, btnDelete);
 
-        let titleCard = document.createElement('h4');
+       
+        const titleCard = document.createElement('h4');
         titleCard.classList.add('titleCard');
         titleCard.innerText = obj.title;
         card.append(titleCard);
@@ -157,6 +152,9 @@ export function app() {
         const cardTime = document.createElement('div');
         cardTime.innerText = obj.time;
         userWrap.append(userName, cardTime);
+        let titleCardTest = titleCard;
+        let descriptionTest = description;
+        let userNameTest = userName;
     }
      
        
@@ -290,6 +288,54 @@ export function app() {
         cardTime.innerText = obj.time;
         userWrap.append(userName, cardTime);
     };
+
+
+    modalTaskBtnConfirm.addEventListener('click', () => {
+        let cardTitle = modalTaskTitle.value;
+        let cardDescription = modalTaskDescription.value;
+        let cardUserName = modalTaskSelect.value;
+        if(flag === 1) {
+            
+            todoCard.id = generateId();
+            (cardTitle) ? (todoCard.title = cardTitle) : (todoCard.title = 'Title');
+            (cardDescription) ? (todoCard.description = cardDescription) : (todoCard.description = 'Description');
+            // let cardUserName = modalTaskSelect.value;
+            todoCard.name = cardUserName;
+            todoCard.time = time(); 
+            todo.push(todoCard);
+            createCardTodo(todoCard);
+            todoCard = {};
+            flag = 0;
+        } else if (flag === 2) {
+            
+            todo.forEach((item) => {
+                if(item.id === ID) {
+                    item.title = cardTitle;
+                    item.description = cardDescription;
+                    item.name = cardUserName;
+                }
+            });
+            let editCard = document.getElementById(`${ID}`);
+            let titleEdit = editCard .children[1];
+            let descEdit = editCard .children[2].firstChild;
+            let userEdit = editCard .children[3].firstChild;
+            
+            (cardTitle) ? (titleEdit.innerText = cardTitle) : (titleEdit.innerText = 'Title');
+            (cardDescription) ? (descEdit.innerText = cardDescription) : (descEdit.innerText = 'Description');
+            userEdit.innerText = modalTaskSelect.value;
+            flag = 0;
+        }
+        updateLocalStorage('todoBoard', todo);
+        chengeCounters('todoBoard', todoCount); 
+        // обнуляем данные модального окна
+        modalTaskTitle.value = '';
+        modalTaskDescription.value = '';
+        modalSelectUserName.remove();
+        modalTaskSelect.value = '';
+        modalTaskContainer.innerHTML = '';
+        modalTaskContainer.remove();
+        
+    });
 
     // функции для модального окна Warning
     function delAllWarning(done, doneCards) {

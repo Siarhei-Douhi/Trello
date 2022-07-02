@@ -1,4 +1,5 @@
 import { body} from "./modalWarning.js";
+import { selectUsers } from "./selectUsers.js";
 export const modalTaskSelect = document.createElement('select');
 export const modalTaskBtnConfirm = document.createElement('button');
 export const modalTaskContainer = document.createElement('div');
@@ -6,9 +7,10 @@ export const modalTaskTitle = document.createElement('input');
 export const modalTaskDescription = document.createElement('textarea');
 export const modalSelectUserName = document.createElement('option');
 
-export function createModalTask() {
 
-    modalSelectUserName.innerHTML = 'Select User Name';
+export function createModalTask(name, flag) {
+
+    modalSelectUserName.innerText = name;
     modalSelectUserName.setAttribute('selected', 'selected');
     modalTaskSelect.prepend(modalSelectUserName);
 
@@ -36,9 +38,12 @@ export function createModalTask() {
     //select user
     modalTaskSelect.classList.add('modalSelect');
     
-    // modalTaskSelect.addEventListener('click', () => {   
-     
-    // });
+    modalTaskSelect.addEventListener('click', () => {   
+        if(modalTaskSelect.length === 1) {
+            modalSelectUserName.remove();
+            selectUsers() 
+        }   
+    });
 
     const modalTaskBtnCancel = document.createElement('button');
     modalTaskBtnCancel.classList.add('modalTaskCancel');
@@ -65,6 +70,8 @@ export function createModalTask() {
     );
     //btnClouse
     modalTaskBtnCancel.addEventListener('click', () => {
+        flag = 0;
+        console.log(flag);
         // oбнуляем текстовые данные мод.окна
         modalTaskTitle.value = '';
         modalTaskDescription.value = '';
@@ -73,5 +80,6 @@ export function createModalTask() {
         modalTaskContainer.innerHTML = '';
         body.style.overflow = '';
         modalTaskContainer.remove();
+        
     });
 };
