@@ -10,30 +10,282 @@ body {
     font-size: 18px;
     line-height: 21px;
     color: #000000;
+    border: 1px solid #663e7624;
+    background: linear-gradient(#5e5e94, #dab8be);
 }
 h3 {
     display: block;
 }
 .container {
-    width: 1000px;
+    width: 1200px;
     display: flex;
     flex-direction: column;
-    padding: 20px;
-    border: 2px solid #000000;
+    margin: 0 auto;
+    padding: 0 15px;
 }
+/* HEADER */
 .header {
+    height: 100px;
+    padding: 50px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: #c68bd547;
+    border-radius: 20px;
 }
+.header__clock {
+    width: 80px;
+    height: 40px;
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #d4b4df;
+    font-size: 23px;
+    text-align: center;
+    padding: 7px;
+    color: #a51acb;
+}
+.header__title {
+    font-size: 55px;
+    font-family: 'Diplomata SC', cursive;
+    color: #000;
+    width: 100%;
+    text-align: center;
+}
+
+/* BOARDS */
 .boards {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3 , 33.33% );
 }
-.board_todo,
-.board_prorgess,
-.board_done {
+.board__todo,
+.board__progress,
+.board__done {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    height: 700px; 
+    background: white;
+    border-radius: 20px;
+    margin: 20px;
+    box-shadow: 0 0 14px rgb(0 0 0 / 10%);
+    
+}
+.title {
+    text-transform: uppercase;
+}
+.info {
+    display: flex;
+    justify-content: space-between;
+    background: #76d16b63;
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    
+}
+.board__progress-info {
+    background: #a5b3a363;
+}
+.board__done-info {
+    background: #6b86d173;
+}
+/* Кнопки */
+.board__todo-add {
+    background: #76d16b63;
+    width: 100%;
+    padding: 15px;
+    text-align: center;
+    border-radius: 10px;
+    border: none;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+}
+.board__todo-add:hover{
+    background: #588f526e;
+}
+.board__todo-add:active{
+    background: #31ab237a;
+}
+.board__done-delall {
+    background: #6b86d173;
+    width: 100%;
+    padding: 15px;
+    text-align: center;
+    border-radius: 10px;
+    border: none;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+}
+.board__done-delall:hover{
+    background: #41517e73;
+}
+.board__done-delall:active{
+    background: #4d65a7c4;
+}
+/* modal task */
+.modalTaskContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5) ;
+    overflow: hidden;
+    
+}
+.modalTaskDialog {
+    max-width: 500px;
+    margin: 40px auto;
+}
+.modalTask {
+    border-radius: 20px;
+    width: 700px;
+    height: 450px;
+    background: rgb(145 218 162);
+    border: 1px solid rgba(44, 43, 43, 0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 35px;
+}
+.modalTaskTitle {
+    background: rgb(255, 255, 255);
+    border-radius: 10px;
+    border: 1px solid;
+    width: 250px;
+    font-size: 27px;
+    height: 60px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+.modalTaskDescription {
+    background: rgb(255, 255, 255);
+    border-radius: 20px;
+    border: 1px solid;
+    width: 600px;
+    height: 200px;
+    font-size: 27px;
+    margin-bottom: 30px;
+    padding: 10px;
+    font-family: 'Raleway', sans-serif;
+}
+.modalbtns {
+    display: flex;
+    justify-content: space-around;
+}
+.modalSelect {
+    width: 300px;
+    border-radius: 10px;
+}
+.modalTaskCancel,
+.modalTaskConfirm {
+    border-radius: 10px;
+    border: 1px solid;
+    width: 120px;
+    height: 60px;
+    font-size: 20px;
+}
+.modalTaskBtn:hover {
+    background: rgb(221, 216, 216);
+}
+
+/* style card */
+
+.board__todo-cards,
+.board__progress-cards,
+.board__done-cards {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow: auto;
+}
+
+.card {
+    width: 300px;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.card button {
+    background-color: white;
+    padding: 5px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.board__todo .card {
+    background: #76d16b63;
+    border: 2px solid #031a0163;
+}
+.board__progress .card {
+    background: #a5b3a363;
+    border: 2px solid #393a3963;
+}
+.board__done .card {
+    background: #6b86d173;
+    border: 2px solid #2a4ba5c4;
+}
+
+.btnsHeadWrap {
+    display: flex;
+    justify-content: flex-end;
+    column-gap: 10px;
+    width: 100%;
+}
+.btnEdit {}
+.btnDelete {}
+.titleCard {
+    margin-bottom: 10px;
+}
+.descrWrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.description {}
+.btnSend {
+    height: 40px;
+}
+.userWrap {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btnBack {}
+.btnComplete {}
+
+
+/* Warning */
+.modalWarning {
+    border-radius: 20px;
+    /* width: 400px; */
+    height: 250px;
+    background: rgb(145 218 162);
+    border: 1px solid rgba(44, 43, 43, 0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 50px;
+    font-size: 55px;
+    text-align: center;
+}
+
+.btnWarningCancel,
+.btnWarningConfirm {
+    width: 100px;
+    height: 50px;
+}
+.btnAllWarning {
+    width: 100%;
+    height: 100%;
+    align-items: end;
+    justify-content: space-evenly;
+    display: flex;
 }
