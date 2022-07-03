@@ -1,8 +1,8 @@
 import { time, clock } from "./clock.js";
-import { updateLocalStorage, ifLocalStorage, getLocalStorage } from "./localStor.js";
+import { updateLocalStorage, getLocalStorage } from "./localStor.js";
 import { generateId } from "./generateId.js";
 import { modalTaskBtnConfirm, createModalTask, modalTaskSelect } from "./modalTask.js";
-import { modalTaskContainer, modalTaskTitle, modalTaskDescription, modalSelectUserName } from "./modalTask.js";
+import { modalTaskTitle, modalTaskDescription, clearModalTask } from "./modalTask.js";
 import { chengeCounters, todoCount, progressCount, doneCount } from "./counters.js";
 import { selectUsers } from "./selectUsers.js";
 import { openModalWarning } from "./modalWarning.js";
@@ -17,51 +17,44 @@ export function app() {
     let inProgressCard = {};
     let todoCard = {};
     let doneCard = {};
-
-    // контейнеры для карточек
+    let ID;
+    let flag = 0;
+    
     const todoCards = document.querySelector('.board__todo-cards'); 
     const progressCards = document.querySelector('.board__progress-cards');
     const doneCards = document.querySelector('.board__done-cards');
 
-    // проверка localStorage для отрисовки данных
-    if (ifLocalStorage('todoBoard')) {
+    if (getLocalStorage('todoBoard')) {
         todo = getLocalStorage('todoBoard');
         todo.forEach((item) => {
             createCardTodo(item);
         });
-        // обновление счетчика
         chengeCounters('todoBoard', todoCount);
     }
-
-    if (ifLocalStorage('inProgressBoard')) {
+    if (getLocalStorage('inProgressBoard')) {
         inProgress = getLocalStorage('inProgressBoard');
         inProgress.forEach((item) => {
             createCardProgress(item);
         });
-        // обновление счетчика
         chengeCounters('inProgressBoard', progressCount);
     }
-
-    if (ifLocalStorage('doneBoard')) {
+    if (getLocalStorage('doneBoard')) {
         done = getLocalStorage('doneBoard');
         done.forEach((item) => {
             createCardDone(item);
         });
-        // обновление счетчика
         chengeCounters('doneBoard', doneCount);
     }
 
-    // КНОПКИ
-    // кнопка выз. модальное окно
     const boardsTodoAdd = document.querySelector('.board__todo-add');
     boardsTodoAdd.addEventListener('click', () => {
-        createModalTask();
+        flag = 1;
+        createModalTask('Select User Name');
         if (modalTaskSelect.length == 1) {
             selectUsers();
         }
     });
 
-    // кнопка удал. карточек Done
     const delAll = document.querySelector('.board__done-delall');
     delAll.addEventListener('click', () => {
         if(doneCards.innerHTML) {
@@ -69,34 +62,42 @@ export function app() {
         }
     });
 
-    // кнопка создания карточки нажатием confirm мод.окно
     modalTaskBtnConfirm.addEventListener('click', () => {
         let cardTitle = modalTaskTitle.value;
         let cardDescription = modalTaskDescription.value;
-        todoCard.id = generateId();
-        // берем данные из мод.окна, если их нет, то подставл. знач. по умолч.
-        (cardTitle) ? (todoCard.title = cardTitle) : (todoCard.title = 'Title');
-        (cardDescription) ? (todoCard.description = cardDescription) : (todoCard.description = 'Description');
-        let cardUser = modalTaskSelect.value;
-        todoCard.name = cardUser;
-        todoCard.time = time(); 
-        todo.push(todoCard);
-        createCardTodo(todoCard);
+        let cardUserName = modalTaskSelect.value;
+        if(flag === 1) {  
+            todoCard.id = generateId();
+            (cardTitle) ? (todoCard.title = cardTitle) : (todoCard.title = 'Title');
+            (cardDescription) ? (todoCard.description = cardDescription) : (todoCard.description = 'Description');
+            todoCard.name = cardUserName;
+            todoCard.time = time(); 
+            todo.push(todoCard);
+            createCardTodo(todoCard);
+            todoCard = {};
+        } else if (flag === 2) {  
+            todo.forEach((item) => {
+                if(item.id === ID) {
+                    item.title = cardTitle;
+                    item.description = cardDescription;
+                    item.name = cardUserName;
+                }
+            });
+            let editCard = document.getElementById(`${ID}`);
+            let titleEdit = editCard .children[1];
+            let descEdit = editCard .children[2].firstChild;
+            let userEdit = editCard .children[3].firstChild;
+            
+            (cardTitle) ? (titleEdit.innerText = cardTitle) : (titleEdit.innerText = 'Title');
+            (cardDescription) ? (descEdit.innerText = cardDescription) : (descEdit.innerText = 'Description');
+            userEdit.innerText = modalTaskSelect.value;
+        }
+        flag = 0;
         updateLocalStorage('todoBoard', todo);
-        todoCard = {};
-        // обнуляем данные модального окна
-        modalTaskTitle.value = '';
-        modalTaskDescription.value = '';
-        modalSelectUserName.remove();
-        modalTaskSelect.value = '';
-        modalTaskContainer.innerHTML = '';
-        modalTaskContainer.remove();
-        // обновление счетчика
-        chengeCounters('todoBoard', todoCount);
+        chengeCounters('todoBoard', todoCount); 
+        clearModalTask()
     });
-
-
-    // функции создания карточек
+   
     function createCardTodo(obj) {
         const card = document.createElement('div');
         card.classList.add('card'); 
@@ -110,8 +111,16 @@ export function app() {
         const btnEdit = document.createElement('button');
         btnEdit.classList.add('btnEdit');
         btnEdit.innerText = 'Edit';
-        // btnEdit.addEventListener('click', () =>{});
-        // вызов модального окна, значения брать из карточки, где оно было вызвано
+        btnEdit.addEventListener('click', () => {            
+            let editItem = todo.filter((item) => item.id == card.id);
+            modalTaskTitle.value = editItem[0].title;
+            modalTaskDescription.value = editItem[0].description;
+            ID = editItem[0].id;
+            let editName = editItem[0].name;
+            modalTaskSelect.value = editItem[0].name;
+            flag = 2;
+            createModalTask(editName);
+        });
 
         const btnDelete = document.createElement('button');
         btnDelete.classList.add('btnDelete');
@@ -120,8 +129,8 @@ export function app() {
             openModalWarning(dellCard, obj, card);
         });
         btnsHeadWrap.append(btnEdit, btnDelete);
-
-        let titleCard = document.createElement('h4');
+       
+        const titleCard = document.createElement('h4');
         titleCard.classList.add('titleCard');
         titleCard.innerText = obj.title;
         card.append(titleCard);
@@ -158,7 +167,6 @@ export function app() {
         cardTime.innerText = obj.time;
         userWrap.append(userName, cardTime);
     }
-     
        
     function createCardProgress(obj) {
         const card = document.createElement('div');
@@ -187,7 +195,6 @@ export function app() {
             inProgress = inProgress.filter((item) => item.id !== obj.id);
             updateLocalStorage('inProgressBoard', inProgress);
             card.remove();
-            // обновление счетчика
             chengeCounters('todoBoard', todoCount);
             chengeCounters('inProgressBoard', progressCount);
         });
@@ -210,7 +217,6 @@ export function app() {
             inProgress = inProgress.filter((item) => item.id !== obj.id);
             updateLocalStorage('inProgressBoard', inProgress);
             card.remove();
-            // обновление счетчика
             chengeCounters('inProgressBoard', progressCount);
             chengeCounters('doneBoard', doneCount);
         });
@@ -255,14 +261,7 @@ export function app() {
         btnDelete.classList.add('btnDelete');
         btnDelete.innerText = 'Delete';
         btnDelete.addEventListener('click', () => {
-            const question = confirm('Вы уверены?');
-            if(question) {
-                done = done.filter((item) => item.id !== obj.id);
-                updateLocalStorage('doneBoard', done);
-                card.remove();
-            }
-            // обновление счетчика
-            chengeCounters('doneBoard', doneCount);
+            openModalWarning(dellCardDone, obj, card);
         });
         btnsHeadWrap.append(btnDelete);
 
@@ -291,12 +290,10 @@ export function app() {
         userWrap.append(userName, cardTime);
     };
 
-    // функции для модального окна Warning
     function delAllWarning(done, doneCards) {
         done.length = 0;
         updateLocalStorage('doneBoard', done);
         doneCards.innerHTML = '';
-        // обновление счетчика
         chengeCounters('doneBoard', doneCount);
     }
 
@@ -315,15 +312,21 @@ export function app() {
         updateLocalStorage('todoBoard', todo);
         card.remove();
 
-        // обновление счетчика
         chengeCounters('todoBoard', todoCount);
         chengeCounters('inProgressBoard', progressCount);
     }
+
     function dellCard (obj, card) {
         todo = todo.filter((item) => item.id !== obj.id);
         updateLocalStorage('todoBoard', todo);
         card.remove();
-        // обновление счетчика
         chengeCounters('todoBoard', todoCount);
+    }
+    
+    function dellCardDone (obj, card) {
+        done = done.filter((item) => item.id !== obj.id);
+        updateLocalStorage('doneBoard', done);
+        card.remove();
+        chengeCounters('doneBoard', doneCount);
     }
 };
