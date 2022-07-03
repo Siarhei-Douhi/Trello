@@ -7,9 +7,7 @@ export const modalTaskTitle = document.createElement('input');
 export const modalTaskDescription = document.createElement('textarea');
 export const modalSelectUserName = document.createElement('option');
 
-
-export function createModalTask(name, flag) {
-
+export function createModalTask(name) {
     modalSelectUserName.innerText = name;
     modalSelectUserName.setAttribute('selected', 'selected');
     modalTaskSelect.prepend(modalSelectUserName);
@@ -35,9 +33,7 @@ export function createModalTask(name, flag) {
     const modalTaskbtns = document.createElement('div'); 
     modalTaskbtns.classList.add('modalbtns');
 
-    //select user
     modalTaskSelect.classList.add('modalSelect');
-    
     modalTaskSelect.addEventListener('click', () => {   
         if(modalTaskSelect.length === 1) {
             modalSelectUserName.remove();
@@ -48,31 +44,26 @@ export function createModalTask(name, flag) {
     const modalTaskBtnCancel = document.createElement('button');
     modalTaskBtnCancel.classList.add('modalTaskCancel');
     modalTaskBtnCancel.innerText = 'Cancel';
+    modalTaskBtnCancel.addEventListener('click', () => {
+        clearModalTask()
+    });
 
     modalTaskBtnConfirm.classList.add('modalTaskConfirm');
     modalTaskBtnConfirm.innerText = 'Confirm';
-    // append
 
     boards.append(modalTaskContainer);
     modalTaskContainer.append(modalTaskDialog);
     modalTaskDialog.append(modalTask);
-
     modalTask.append(
         modalTaskTitle, 
         modalTaskDescription,
         modalTaskbtns
-    );
-        
+    );    
     modalTaskbtns.append(
         modalTaskSelect, 
         modalTaskBtnCancel, 
         modalTaskBtnConfirm
     );
-    //btnClouse
-    modalTaskBtnCancel.addEventListener('click', () => {
-        flag = 0;
-        clearModalTask()
-    });
 };
 
 export function clearModalTask() {

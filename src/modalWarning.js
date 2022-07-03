@@ -1,7 +1,7 @@
 export  const container = document.querySelector('.container');
 export const body = document.querySelector('body');
+
 export function openModalWarning(func, a, b) {
-    // const body = document.querySelector('body');
     body.style.overflow = 'hidden';
 
     const modalWarningContainer = document.createElement('div');
@@ -32,15 +32,16 @@ export function openModalWarning(func, a, b) {
     btnAllWarning.append(btnWarningCancel, btnWarningConfirm);
 
     btnWarningCancel.addEventListener('click', () => {
-        body.style.overflow = '';
-        modalWarningContainer.remove()
         if (b.style.backgroundColor) {
             b.style.backgroundColor = '';
         } 
+        body.style.overflow = '';
+        modalWarningContainer.remove()
+        
     });
     btnWarningConfirm.addEventListener('click', () => {
         func(a, b);
+        body.style.overflow = '';
         modalWarningContainer.remove();
     });
-    
 }; 
