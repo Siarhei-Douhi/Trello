@@ -191,12 +191,8 @@ export function app() {
             createCardTodo(todoCard);
             updateLocalStorage('todoBoard', todo);
             todoCard = {};
-            
-            inProgress = inProgress.filter((item) => item.id !== obj.id);
-            updateLocalStorage('inProgressBoard', inProgress);
-            card.remove();
+            updateLocalAndCount(inProgress, obj, 'inProgressBoard', card, progressCount);
             chengeCounters('todoBoard', todoCount);
-            chengeCounters('inProgressBoard', progressCount);
         });
 
         const btnComplete = document.createElement('button');
@@ -213,11 +209,7 @@ export function app() {
             createCardDone(doneCard);
             updateLocalStorage('doneBoard', done);
             doneCard = {};
-
-            inProgress = inProgress.filter((item) => item.id !== obj.id);
-            updateLocalStorage('inProgressBoard', inProgress);
-            card.remove();
-            chengeCounters('inProgressBoard', progressCount);
+            updateLocalAndCount(inProgress, obj, 'inProgressBoard', card, progressCount);
             chengeCounters('doneBoard', doneCount);
         });
         btnsHeadWrap.append(btnBack, btnComplete);
@@ -307,26 +299,21 @@ export function app() {
         createCardProgress(inProgressCard);
         updateLocalStorage('inProgressBoard', inProgress);
         inProgressCard = {};
-
-        todo = todo.filter((item) => item.id !== obj.id);
-        updateLocalStorage('todoBoard', todo);
-        card.remove();
-
-        chengeCounters('todoBoard', todoCount);
+        updateLocalAndCount(todo, obj, 'todoBoard', card, todoCount);
         chengeCounters('inProgressBoard', progressCount);
     }
 
-    function dellCard (obj, card) {
-        todo = todo.filter((item) => item.id !== obj.id);
-        updateLocalStorage('todoBoard', todo);
-        card.remove();
-        chengeCounters('todoBoard', todoCount);
+    function dellCard(obj, elHtml) {
+        updateLocalAndCount(todo, obj, 'todoBoard', elHtml, todoCount);
     }
-    
-    function dellCardDone (obj, card) {
-        done = done.filter((item) => item.id !== obj.id);
-        updateLocalStorage('doneBoard', done);
-        card.remove();
-        chengeCounters('doneBoard', doneCount);
+
+    function dellCardDone(obj, elHtml) {
+        updateLocalAndCount(done, obj, 'doneBoard', elHtml, doneCount);
+    }
+    function updateLocalAndCount(arr, obj, key, elHtml1, elHtm2) {
+        arr = arr.filter((item) => item.id !== obj.id);
+        updateLocalStorage(key, arr);
+        elHtml1.remove();
+        chengeCounters(key, elHtm2);
     }
 };
