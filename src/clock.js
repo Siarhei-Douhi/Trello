@@ -8,6 +8,6 @@ export function time() {
 export function clock() {
     const clock = document.querySelector('.header__clock');
     setInterval(() => {
-       clock.innerHTML = time();
+        clock.innerHTML = time();
     }, 1000);
 }
