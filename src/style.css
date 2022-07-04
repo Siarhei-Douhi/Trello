@@ -4,15 +4,18 @@
     box-sizing: border-box;
 }
 body {
-    font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
     line-height: 21px;
     color: #000000;
-    border: 1px solid #663e7624;
-    background: linear-gradient(#5e5e94, #dab8be);
+    background: rgb(255 255 255 / 74%) url(img/2.jpg);
+    background-repeat: no-repeat;
+    background-blend-mode: overlay;
+    background-position: center;
+    background-size: cover;
 }
+
 h3 {
     display: block;
 }
@@ -23,37 +26,61 @@ h3 {
     margin: 0 auto;
     padding: 0 15px;
 }
-/* HEADER */
 .header {
-    height: 100px;
+    background: linear-gradient(-50deg, #68daaccf, #a8c7eab5, #79abbd87, #aac7f087);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    height: 100%;
     padding: 50px;
-    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #c68bd547;
-    border-radius: 20px;
+    border-radius: 10px;
+}
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;}
+	50% {
+		background-position: 100% 50%;}
+	100% {
+        background-position: 0% 50%;}
 }
 .header__clock {
-    width: 80px;
-    height: 40px;
-    background: #fff;
-    border-radius: 10px;
-    border: 1px solid #d4b4df;
-    font-size: 23px;
-    text-align: center;
-    padding: 7px;
-    color: #a51acb;
+    width: 20%;
+    height: 55px;
+    font-size: 34px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-shadow: rgba(255,255,255,.5) 1px 1px, rgba(100,100,100,.3) 3px 7px 3px;
+    background-image: linear-gradient(45deg, rgba(255,255,255,.0) 30%, rgba(255,255,255,.8), rgba(255,255,255,.0) 70%),
+    linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,0) 20%, rgba(255,255,255,0) 90%, rgba(255,255,255,.3)),
+    linear-gradient(to right, rgba(125,125,125,1), rgba(255,255,255,.9) 45%, rgba(125,125,125,.5)),
+    linear-gradient(to right, rgba(125,125,125,1), rgba(255,255,255,.9) 45%, rgba(125,125,125,.5)),
+    linear-gradient(to right, rgba(223,190,170,1), rgba(255,255,255,.9) 45%, rgba(223,190,170,.5)),
+    linear-gradient(to right, rgba(223,190,170,1), rgba(255,255,255,.9) 45%, rgba(223,190,170,.5));
+    background-repeat: no-repeat;
+    background-size: 200% 100%, auto, 100% 2px, 100% 2px, 100% 1px, 100% 1px;
+    background-position: 200% 0, 0 0, 0 0, 0 100%, 0 4px, 0 calc(100% - 4px);
+    box-shadow: rgba(0,0,0,.5) 3px 10px 10px -10px;
+}
+.header__clock:hover{
+    background-image: linear-gradient(45deg, rgba(255,255,255,.0) 30%, rgba(255,255,255,.8), rgba(255,255,255,.0) 70%),
+    linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,0) 20%, rgb(27 25 25 / 0%) 90%, rgba(255,255,255,.3)),
+    linear-gradient(to right, rgba(125,125,125,1), rgba(255,255,255,.9) 45%, rgb(39 38 38 / 50%)),
+    linear-gradient(to right, rgba(125,125,125,1), rgba(255,255,255,.9) 45%, rgb(5 5 5 / 50%)),
+    linear-gradient(to right, rgba(223,190,170,1), rgb(0 0 0 / 90%) 45%, rgba(223,190,170,.5)),
+    linear-gradient(to right, rgba(223,190,170,1), rgba(255,255,255,.9) 45%, rgb(0 0 0 / 50%));
+    box-shadow: rgb(0 0 0 / 50%) 8px 13px 13px -6px;
 }
 .header__title {
-    font-size: 55px;
-    font-family: 'Diplomata SC', cursive;
+    font-size: 70px;
     color: #000;
     width: 100%;
     text-align: center;
+    text-shadow: 3px 3px white;
 }
 
-/* BOARDS */
 .boards {
     display: grid;
     grid-template-columns: repeat(3 , 33.33% );
@@ -72,61 +99,104 @@ h3 {
     box-shadow: 0 0 14px rgb(0 0 0 / 10%);
     
 }
+
+.board__todo-count:hover,
+.board__progress-count:hover,
+.board__done-count:hover{
+    -webkit-animation: swing 0.5s ease;
+    animation: swing 1s ease;
+    -webkit-animation-iteration-count: 1;
+    animation-iteration-count: 1;
+}
 .title {
     text-transform: uppercase;
 }
 .info {
     display: flex;
     justify-content: space-between;
-    background: #76d16b63;
     width: 100%;
     padding: 15px;
-    border-radius: 10px;
     margin-bottom: 10px;
-    
+    width: 100%;
+    text-align: center; 
+    font-size: 25px;
+    font-weight: 500;
+    text-shadow: 2px 1px white;
+    color: #000;
+    border: 1px solid rgba(110,121,128,.8);
+    border-top-color: rgba(0,0,0,.3);
+    border-radius: 5px;
+    background: rgb(121 192 139) linear-gradient(rgb(159 217 184), rgb(229 235 238));
+    box-shadow: 0 -1px rgba(10,21,28,.9) inset, 0 1px rgba(255,255,255,.5) inset;
 }
 .board__progress-info {
-    background: #a5b3a363;
+    background: rgb(166 177 168) linear-gradient(rgb(143 159 150), rgb(224 228 229));
 }
 .board__done-info {
-    background: #6b86d173;
+    background: rgb(154 154 192) linear-gradient(rgb(155 168 199), rgb(229 235 238));
 }
-/* Кнопки */
 .board__todo-add {
-    background: #76d16b63;
     width: 100%;
     padding: 15px;
-    text-align: center;
-    border-radius: 10px;
-    border: none;
+    text-align: center; 
     font-size: 20px;
     font-weight: 500;
     cursor: pointer;
+    text-shadow: 2px 1px white;
+    color: #000;
+    border: 1px solid rgba(110,121,128,.8);
+    border-top-color: rgba(0,0,0,.3);
+    border-radius: 5px;
+    background: rgb(121 192 139) linear-gradient(rgb(159 217 184), rgb(229 235 238));
+    box-shadow: 0 -1px rgba(10,21,28,.9) inset, 0 1px rgba(255,255,255,.5) inset;
 }
 .board__todo-add:hover{
-    background: #588f526e;
-}
-.board__todo-add:active{
-    background: #31ab237a;
+    animation: swing 1s ease;
+    animation-iteration-count: 1;
 }
 .board__done-delall {
-    background: #6b86d173;
     width: 100%;
     padding: 15px;
     text-align: center;
-    border-radius: 10px;
-    border: none;
     font-size: 20px;
+    text-shadow: 2px 1px white;
     font-weight: 500;
     cursor: pointer;
+    color: #000;
+    border: 1px solid rgba(110,121,128,.8);
+    border-top-color: rgba(0,0,0,.3);
+    border-radius: 5px;
+    background: rgb(154 154 192) linear-gradient(rgb(155 168 199), rgb(229 235 238));
+    box-shadow: 0 -1px rgb(10 21 28 / 90%) inset, 0 1px rgb(255 255 255 / 50%) inset;
 }
+
 .board__done-delall:hover{
-    background: #41517e73;
+    animation: swing 1s ease;
+    animation-iteration-count: 1;
 }
-.board__done-delall:active{
-    background: #4d65a7c4;
-}
-/* modal task */
+
+@keyframes swing
+    {
+    15%
+    {
+        transform: translateX(7px);}
+    30%
+    {
+        transform: translateX(-7px);}
+    50%
+    {
+        transform: translateX(5px);}
+    65%
+    {
+        transform: translateX(-5px);}
+    80%
+    {
+        transform: translateX(4px);}
+    100%
+    {
+        transform: translateX(0);}
+    }
+
 .modalTaskContainer {
     position: fixed;
     top: 0;
@@ -143,10 +213,10 @@ h3 {
     margin: 40px auto;
 }
 .modalTask {
-    border-radius: 20px;
+    border-radius: 10px;
     width: 700px;
     height: 450px;
-    background: rgb(145 218 162);
+    background: linear-gradient(#b7b7cc, #7b95c4);
     border: 1px solid rgba(44, 43, 43, 0.15);
     display: flex;
     flex-direction: column;
@@ -155,7 +225,7 @@ h3 {
 }
 .modalTaskTitle {
     background: rgb(255, 255, 255);
-    border-radius: 10px;
+    border-radius: 5px;
     border: 1px solid;
     width: 250px;
     font-size: 27px;
@@ -165,7 +235,7 @@ h3 {
 }
 .modalTaskDescription {
     background: rgb(255, 255, 255);
-    border-radius: 20px;
+    border-radius: 5px;
     border: 1px solid;
     width: 600px;
     height: 200px;
@@ -180,21 +250,29 @@ h3 {
 }
 .modalSelect {
     width: 300px;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 .modalTaskCancel,
 .modalTaskConfirm {
-    border-radius: 10px;
-    border: 1px solid;
     width: 120px;
     height: 60px;
     font-size: 20px;
-}
-.modalTaskBtn:hover {
-    background: rgb(221, 216, 216);
-}
+    color: #000;
+    border: 1px solid rgba(110,121,128,.8);
+    border-top-color: rgba(0,0,0,.3);
+    border-radius: 5px;
+    background: rgb(223 227 230) linear-gradient(rgb(240 242 244), rgb(229 235 238));
+    box-shadow: 0 -1px rgb(10 21 28 / 90%) inset, 0 1px rgb(255 255 255 / 50%) inset;
 
-/* style card */
+}
+.modalTaskCancel:hover,
+.modalTaskConfirm:hover{
+    background: rgb(223 227 230) linear-gradient(rgb(184, 208, 231), rgb(229 235 238));
+}
+.modalTaskCancel:active,
+.modalTaskConfirm:active{
+    background: rgb(223 227 230) linear-gradient(rgb(184, 208, 231), rgb(118, 146, 160));
+}
 
 .board__todo-cards,
 .board__progress-cards,
@@ -213,14 +291,34 @@ h3 {
     margin-bottom: 10px;
 }
 .card button {
-    background-color: white;
-    padding: 5px;
-    border: 1px solid #000000;
+    width: 6em;
+    height: 2.5em;
+    color: #000;
+    border: 1px solid rgba(110,121,128,.8);
+    border-top-color: rgba(0,0,0,.3);
     border-radius: 5px;
-    cursor: pointer;
+    background: rgb(223 227 230) linear-gradient(rgb(240 242 244), rgb(229 235 238));
+    box-shadow: 0 -1px rgba(10,21,28,.9) inset, 0 1px rgba(255,255,255,.5) inset;
 }
+.card button:hover {
+    background: rgb(223 227 230) linear-gradient(rgb(152 170 184), rgb(229 235 238));
+}
+.card button:active {
+    background: rgb(223 227 230) linear-gradient(rgb(152 170 184), rgb(201 207 209));
+}
+.description {
+    text-overflow: ellipsis;
+    width: 170px;
+
+    overflow: auto;
+    max-height: 100px;
+}
+.description::-webkit-scrollbar{
+    width: 1px;
+}
+
 .board__todo .card {
-    background: #76d16b63;
+    background: #61c08a63;
     border: 2px solid #031a0163;
 }
 .board__progress .card {
@@ -242,6 +340,7 @@ h3 {
 .btnDelete {}
 .titleCard {
     margin-bottom: 10px;
+    font-size: 25px;
 }
 .descrWrap {
     display: flex;
@@ -262,12 +361,11 @@ h3 {
 .btnComplete {}
 
 
-/* Warning */
 .modalWarning {
-    border-radius: 20px;
-    /* width: 400px; */
+    border-radius: 10px;
+    width: 90%;
     height: 250px;
-    background: rgb(145 218 162);
+    background: linear-gradient(#b7b7cc, #c6eae8);
     border: 1px solid rgba(44, 43, 43, 0.15);
     display: flex;
     flex-direction: column;
@@ -275,12 +373,24 @@ h3 {
     padding: 50px;
     font-size: 55px;
     text-align: center;
+    text-shadow: 1px 2px white;
 }
 
-.btnWarningCancel,
-.btnWarningConfirm {
+.btnWarningCancel, .btnWarningConfirm {
     width: 100px;
     height: 50px;
+    font-size: 17px;
+    border: none;
+    border-radius: 5px;
+    background: rgb(223 227 230) linear-gradient(rgb(240 242 244), rgb(229 235 238));
+}
+.btnWarningCancel:hover,
+.btnWarningConfirm:hover{
+    background: rgb(223 227 230) linear-gradient(rgb(184, 208, 231), rgb(229 235 238));
+}
+.btnWarningCancel:active,
+.btnWarningConfirm:active{
+    background: rgb(223 227 230) linear-gradient(rgb(184, 208, 231), rgb(118, 146, 160));
 }
 .btnAllWarning {
     width: 100%;

@@ -5,11 +5,16 @@ import { modalTaskBtnConfirm, createModalTask, modalTaskSelect } from "./modalTa
 import { modalTaskTitle, modalTaskDescription, clearModalTask } from "./modalTask.js";
 import { chengeCounters, todoCount, progressCount, doneCount } from "./counters.js";
 import { selectUsers } from "./selectUsers.js";
-import { openModalWarning } from "./modalWarning.js";
+import { container, openModalWarning } from "./modalWarning.js";
+import { createAccordeon } from "./accardeon.js";
 
 export function app() {
 
     clock();
+
+    if(container.offsetWidth <= 600) {
+        createAccordeon();
+    } 
 
     let todo = [];
     let inProgress = [];
@@ -17,6 +22,7 @@ export function app() {
     let inProgressCard = {};
     let todoCard = {};
     let doneCard = {};
+
     let ID;
     let flag = 0;
     
@@ -97,7 +103,7 @@ export function app() {
         chengeCounters('todoBoard', todoCount); 
         clearModalTask()
     });
-   
+    
     function createCardTodo(obj) {
         const card = document.createElement('div');
         card.classList.add('card'); 
@@ -148,7 +154,7 @@ export function app() {
         btnSend.innerText = '>';
         btnSend.addEventListener('click', () => {  
             if (progressCount.innerHTML > 5) {
-                card.style.backgroundColor = 'red';
+                card.style.backgroundColor = '#c0616163';
                 openModalWarning(cardSend, obj, card);
             } else {
                 cardSend(obj, card);
