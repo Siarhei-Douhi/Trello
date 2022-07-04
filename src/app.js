@@ -12,9 +12,7 @@ export function app() {
 
     clock();
 
-    if(container.offsetWidth <= 600) {
-        createAccordeon();
-    } 
+    createAccordeon();
 
     let todo = [];
     let inProgress = [];

@@ -114,15 +114,14 @@
         width: 30%;
     }
     .cards-wrap {
-        max-height: 430px;
-        overflow: auto;
+        max-height: 0;
+        overflow: hidden;
         transition: max-height 0.3s ease-out;
-        display: none;
     }
-            .board__todo, .board__progress, .board__done {
-            justify-content: normal;
-            height: 100%;
-        }
+    .board__todo, .board__progress, .board__done {
+        justify-content: normal;
+        height: 100%;
+    }
 }
 @media (max-width: 510px) {
     .header__clock {
@@ -178,10 +177,7 @@
     }
     .header__title {
         font-size: 55px;
-        /* font-family: 'Crimson Text', serif; */
         color: #000;
-        /* width: 100%; */
-        /* text-align: center; */
         text-shadow: 3px 3px white;
     }
     .modalWarning {
@@ -194,5 +190,4 @@
         width: 240px;
         font-size: 37px;
     }
-
 }

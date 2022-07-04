@@ -273,11 +273,13 @@ h3 {
 .modalTaskConfirm:active{
     background: rgb(223 227 230) linear-gradient(rgb(184, 208, 231), rgb(118, 146, 160));
 }
-
+.cards-wrap {
+    max-height: 100%;
+    }
 .board__todo-cards,
 .board__progress-cards,
 .board__done-cards {
-    height: 100%;
+    height: 700px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -288,7 +290,8 @@ h3 {
     width: 300px;
     border-radius: 10px;
     padding: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 10px; 
+
 }
 .card button {
     width: 6em;
