@@ -26,7 +26,6 @@ h3 {
     margin: 0 auto;
     padding: 0 15px;
 }
-/* HEADER */
 .header {
     background: linear-gradient(-50deg, #68daaccf, #a8c7eab5, #79abbd87, #aac7f087);
     background-size: 400% 400%;
@@ -76,14 +75,12 @@ h3 {
 }
 .header__title {
     font-size: 70px;
-    /* font-family: 'Crimson Text', serif; */
     color: #000;
     width: 100%;
     text-align: center;
     text-shadow: 3px 3px white;
 }
 
-/* BOARDS */
 .boards {
     display: grid;
     grid-template-columns: repeat(3 , 33.33% );
@@ -102,7 +99,6 @@ h3 {
     box-shadow: 0 0 14px rgb(0 0 0 / 10%);
     
 }
-
 
 .board__todo-count:hover,
 .board__progress-count:hover,
@@ -139,7 +135,6 @@ h3 {
 .board__done-info {
     background: rgb(154 154 192) linear-gradient(rgb(155 168 199), rgb(229 235 238));
 }
-/* Кнопки */
 .board__todo-add {
     width: 100%;
     padding: 15px;
@@ -180,8 +175,6 @@ h3 {
     animation-iteration-count: 1;
 }
 
-/*keyframes устанавливает ключевые кадры при анимации элемента*/
-
 @keyframes swing
     {
     15%
@@ -203,7 +196,7 @@ h3 {
     {
         transform: translateX(0);}
     }
-/* modal task */
+
 .modalTaskContainer {
     position: fixed;
     top: 0;
@@ -280,7 +273,6 @@ h3 {
 .modalTaskConfirm:active{
     background: rgb(223 227 230) linear-gradient(rgb(184, 208, 231), rgb(118, 146, 160));
 }
-/* style card */
 
 .board__todo-cards,
 .board__progress-cards,
@@ -369,7 +361,6 @@ h3 {
 .btnComplete {}
 
 
-/* Warning */
 .modalWarning {
     border-radius: 10px;
     width: 90%;
@@ -408,5 +399,3 @@ h3 {
     justify-content: space-evenly;
     display: flex;
 }
-
-

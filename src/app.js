@@ -14,7 +14,7 @@ export function app() {
 
     if(container.offsetWidth <= 600) {
         createAccordeon();
-    }
+    } 
 
     let todo = [];
     let inProgress = [];
@@ -154,7 +154,7 @@ export function app() {
         btnSend.innerText = '>';
         btnSend.addEventListener('click', () => {  
             if (progressCount.innerHTML > 5) {
-                card.style.backgroundColor = 'red';
+                card.style.backgroundColor = '#c0616163';
                 openModalWarning(cardSend, obj, card);
             } else {
                 cardSend(obj, card);
