@@ -1,8 +1,8 @@
 import { time, clock } from "./clock.js";
-import { updateLocalStorage, ifLocalStorage, getLocalStorage } from "./localStor.js";
+import { updateLocalStorage, getLocalStorage } from "./localStor.js";
 import { generateId } from "./generateId.js";
 import { modalTaskBtnConfirm, createModalTask, modalTaskSelect } from "./modalTask.js";
-import { modalTaskContainer, modalTaskTitle, modalTaskDescription, modalSelectUserName } from "./modalTask.js";
+import { modalTaskTitle, modalTaskDescription, clearModalTask } from "./modalTask.js";
 import { chengeCounters, todoCount, progressCount, doneCount } from "./counters.js";
 import { selectUsers } from "./selectUsers.js";
 import { container, openModalWarning } from "./modalWarning.js";
@@ -23,27 +23,28 @@ export function app() {
     let todoCard = {};
     let doneCard = {};
 
+    let ID;
+    let flag = 0;
+    
     const todoCards = document.querySelector('.board__todo-cards'); 
     const progressCards = document.querySelector('.board__progress-cards');
     const doneCards = document.querySelector('.board__done-cards');
 
-    if (ifLocalStorage('todoBoard')) {
+    if (getLocalStorage('todoBoard')) {
         todo = getLocalStorage('todoBoard');
         todo.forEach((item) => {
             createCardTodo(item);
         });
         chengeCounters('todoBoard', todoCount);
     }
-
-    if (ifLocalStorage('inProgressBoard')) {
+    if (getLocalStorage('inProgressBoard')) {
         inProgress = getLocalStorage('inProgressBoard');
         inProgress.forEach((item) => {
             createCardProgress(item);
         });
         chengeCounters('inProgressBoard', progressCount);
     }
-
-    if (ifLocalStorage('doneBoard')) {
+    if (getLocalStorage('doneBoard')) {
         done = getLocalStorage('doneBoard');
         done.forEach((item) => {
             createCardDone(item);
@@ -102,7 +103,7 @@ export function app() {
         chengeCounters('todoBoard', todoCount); 
         clearModalTask()
     });
-
+    
     function createCardTodo(obj) {
         const card = document.createElement('div');
         card.classList.add('card'); 
